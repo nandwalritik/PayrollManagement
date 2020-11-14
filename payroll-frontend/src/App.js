@@ -26,6 +26,7 @@ function App() {
 
       {/* Login form for admin */}
       <form class="Login-form" id="Admin" onSubmit={checkAuth} onChange={verifyEmail}>
+        <button class="Back" onClick={hideForm}>x</button>
         <h1>LOG IN</h1>
         <input type="email" placeholder="username or email" className="Input-field"></input>
         <p className="Error"></p>
@@ -35,6 +36,7 @@ function App() {
 
       {/* Login form for employee */}
       <form class="Login-form" id="Employee" onSubmit={checkAuth}>
+        <button class="Back" onClick={hideForm}>x</button>
         <h1>LOG IN</h1>
         <input type="text" placeholder="unique identification no" className="Input-field"></input>
         <input type="password" placeholder="password" className="Input-field"></input>
@@ -53,6 +55,17 @@ function showForm(e){
     let text = e.target.innerText;
     if(categories[i] === text.slice(text.lastIndexOf(' ')+1,text.length)) {
       document.getElementById(`${categories[i]}`).style.display = 'block';
+    }
+  }
+}
+
+//function to hide form
+function hideForm(e){
+  document.querySelector('.Film').style.display = 'none';
+  for(let i=0;i<categories.length;i++)
+  {
+    if(categories[i] === e.target.parentElement.id) {
+      document.getElementById(categories[i]).style.display = 'none';
     }
   }
 }

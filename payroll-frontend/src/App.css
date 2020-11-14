@@ -49,6 +49,10 @@ header img{
   color:#444;
 }
 
+.Login-button:hover{
+  border-color: #18a0f8;
+}
+
 .Login-button:focus{
   outline:none;
 }
@@ -66,6 +70,7 @@ header img{
 
 .Login-form{
   text-align:center;
+  color:#444;
   background-color: #fff;
   border:2px solid #18a0f8;
   border-radius:1em;
@@ -74,9 +79,23 @@ header img{
   padding:2em 0;
   z-index:4;
   position:absolute;
-  top:15vh;
+  top:12vh;
   left:25vw;
   display:none;
+}
+
+.Login-form .Back{
+  position:relative;
+  left:22vw;
+  outline:none;
+  border:none;
+  background-color:#fff;
+  font-size:1.7em;
+  color: #8ee3e3;
+}
+
+.Login-form .Back:hover{
+  color:#18a0f8;
 }
 
 .Login-form h1{
@@ -94,11 +113,15 @@ header img{
   padding:0.7em 1em;
 }
 
+.Login-form input:hover{
+  border-color:#18a0f8;
+}
+
 .Login-form input:focus{
   outline:none;
 }
 
-.Login-form input[type="email"], .Login-form input[type="password"]{
+.Input-field{
   width:40em;
   height:1.5em;
 }
@@ -108,6 +131,7 @@ header img{
   height:2.5em;
   font-size:1.1em;
   background-color:#fff;
+  color:#444;
 }
 
 .Error{
@@ -121,4 +145,133 @@ header img{
   position: relative;
   top: -3em;
   border-radius: 0.6em;
+}
+
+@media (max-width:1024px) {
+  .Login-form{
+    top:20vh;
+  }
+  .Input-field{
+    width: 30em;
+  }
+}
+
+@media (max-width:768px) {
+  .App{
+    padding: 2em 2em 0;
+  }
+  header h1 {
+    font-size:1.75em;
+  }
+  header img{
+    right: 2.5em;
+    bottom: -2em;
+    width:5em;
+    height:5em;
+  }
+  .Login-form .Back {
+    left: 20vw;
+  }
+  .Login-form h1{
+    font-size: 1.75em;
+  }
+  .Input-field{
+    width: 20em;
+  }
+  .Login-form input[type="submit"] {
+    font-size:1em;
+  }
+}
+
+@media (max-width:425px) {
+  .App{
+    padding:0.5em 0;
+    background-size: 20% 20%;
+    background-position: 1em 5em;
+  }
+  header {
+    margin: 0 2em;
+  }
+  header h1 {
+    font-size:1.25em;
+  }
+  header img{
+    right: 2em;
+    bottom: -0.75em;
+    width:2em;
+    height:2em;
+  }
+  .Login {
+    margin-top: 5em;
+  }
+  .Login-button {
+    width: 12.5em;
+    font-size:1em;
+    margin-top: 0;
+  }
+  .Login-form {
+    width: 80vw;
+    left: 10vw;
+  }
+  .Login-form .Back {
+    left: 32vw;
+    top: -1.5vh;
+  }
+  .Login-form h1{
+    font-size: 1.60em;
+  }
+  .Login-form input[type="submit"] {
+    font-size:0.8em;
+  }
+}
+
+@media (max-width:375px) {
+  .App {
+    padding: 1.5em 0;
+    background-position: 1em 7em;
+  }
+  header img {
+    right: 1em;
+  }
+  .Login-button {
+    width: 11em;
+    font-size: 1em;
+  }
+  .Login-form {
+    width: 95vw;
+    left: 2.5vw;
+  }
+  .Login-form .Back {
+    left: 40vw;
+  }
+}
+
+@media (max-width: 320px) {
+  .App {
+    background-size: 20% 17%;
+  }
+  header {
+    margin: 0 1em;
+  }
+  header img {
+    right: 0.2em;
+  }
+  .Login {
+    margin-top: 3.5em;
+  }
+  .Login-button {
+    width: 9em;
+    font-size: 0.75em;
+  }
+  .Login-form {
+    padding: 0.5em 0;
+    width: 98vw;
+    left: 0.5vw;
+  }
+  .Login-form .Back {
+    top: 1vh;
+  }
+  .Login-form input[type="submit"] {
+    margin-bottom: 1em;
+  }
 }
