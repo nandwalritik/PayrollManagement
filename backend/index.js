@@ -19,6 +19,7 @@ app.get("/", (request, response) => {
   response.json({ info: "Node.js, Express, and Postgres API" });
 });
 app.post("/api/adminSignup", User.create);
+app.post('/api/adminLogin',User.adminLogin)
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
