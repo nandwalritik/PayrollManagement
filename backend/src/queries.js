@@ -31,7 +31,7 @@ const create = async (req, res) => {
   }
 };
 const adminLogin = async (req, res) => {
-  // console.log(req)
+  console.log(req)
   if (!req.body.email || !req.body.password) {
     return res
       .status(400)
@@ -48,15 +48,15 @@ const adminLogin = async (req, res) => {
     if (!rows[0]) {
       return res
         .status(400)
-        .send({ message: "The credentials you provided is incorrect" });
+        .send({ error: "The credentials you provided is incorrect" });
     }
     if (!Helper.comparePassword(rows[0].password, req.body.password)) {
       return res
         .status(400)
-        .send({ message: "The credentials you provided is incorrect" });
+        .send({ error: "The credentials you provided is incorrect" });
     }
     const token = Helper.generateToken(rows[0].email);
-    return res.status(200).send({ token });
+    return res.status(200).send({ message:"Auth.verified",token:token });
   }catch(error){
     return res.status(400).send(error);
   }
