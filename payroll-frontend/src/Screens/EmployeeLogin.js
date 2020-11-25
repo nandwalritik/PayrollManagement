@@ -52,6 +52,9 @@ const EmployeeLogin = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const handleSubmit=async()=>{
+      console.log("HandleSubmit called")
+  }
   return (
     <div className="App">
       <header>
@@ -106,6 +109,7 @@ const EmployeeLogin = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onSubmit={handleSubmit}
             >
               Log In
             </Button>

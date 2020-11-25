@@ -15,6 +15,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import { useHistory } from "react-router-dom";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -49,9 +51,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AdminLogin = () => {
+  // console.log(base_url)
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const body = JSON.stringify({
+      email:email,
+      password:password
+  })
+  const history = useHistory()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    fetch('http://localhost:3003/api/adminLogin', {
+      method: "POST",
+      body:body,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if(res.message==="Auth.verified")
+        {
+          history.push('/adminDashboard')
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="App">
       <header>
@@ -109,6 +140,9 @@ const AdminLogin = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={(e) => {
+                handleSubmit(e);
+              }}
             >
               Sign In
             </Button>
