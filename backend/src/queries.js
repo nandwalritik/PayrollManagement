@@ -20,7 +20,7 @@ const create = async (req, res) => {
     const { rows } = await db.query(createQuery, values);
     const token = Helper.generateToken(rows[0].email);
     // console.log("This is token ",token)
-    return res.status(201).send({message:"Account.Create" ,token:token });
+    return res.status(201).send({ message: "Account.Create", token: token });
   } catch (err) {
     if (err.routine === "_bt_check_unique") {
       return res
@@ -30,5 +30,36 @@ const create = async (req, res) => {
     return res.status(400).send(err);
   }
 };
+const adminLogin = async (req, res) => {
+  // console.log(req)
+  if (!req.body.email || !req.body.password) {
+    return res
+      .status(400)
+      .send({ message: "Please enter a valid email address" });
+  }
+  if (!Helper.isValidEmail(req.body.email)) {
+    return res
+      .status(400)
+      .send({ message: "Please enter a valid email address" });
+  }
+  const query = "SELECT * FROM admin where email = $1";
+  try {
+    const { rows } = await db.query(query, [req.body.email]);
+    if (!rows[0]) {
+      return res
+        .status(400)
+        .send({ message: "The credentials you provided is incorrect" });
+    }
+    if (!Helper.comparePassword(rows[0].password, req.body.password)) {
+      return res
+        .status(400)
+        .send({ message: "The credentials you provided is incorrect" });
+    }
+    const token = Helper.generateToken(rows[0].email);
+    return res.status(200).send({ token });
+  }catch(error){
+    return res.status(400).send(error);
+  }
+};
 
-module.exports = { create };
+module.exports = { create,adminLogin };
