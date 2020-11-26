@@ -3,6 +3,7 @@ import logo from "../Assets/Logo.png";
 import "../StyleSheets/Welcome.css";
 import Modal from "react-modal";
 import { Redirect } from "react-router-dom";
+
 import { useHistory } from "react-router-dom";
 const AdminDashboard = () => {
   const [showId, setShowid] = useState(0);
@@ -17,8 +18,8 @@ const AdminDashboard = () => {
         <hr className="Underline" />
         <img src={logo} alt="logo"></img>
       </header>
-      <div style={styles.content}>
-        This Page Is Under Development
+      <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
+        <h1>This Page Is Under Development</h1>
       </div>
       <div class="Film"></div>
     </div>
