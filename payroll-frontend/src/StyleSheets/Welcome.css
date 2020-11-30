@@ -1,6 +1,6 @@
 .App {
   padding: 2em 3em 0;
-  background: url("squares.png") no-repeat;
+  background: url("../Assets/squares.png") no-repeat;
   background-position: 3em 9em;
   min-height: 80vh;
   font-family: 'Lato', sans-serif;
