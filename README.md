@@ -1,1 +1,1 @@
-# PayrollMangagement
+# PayrollManagement
