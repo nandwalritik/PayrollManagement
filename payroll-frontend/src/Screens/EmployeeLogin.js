@@ -10,6 +10,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import { useHistory } from "react-router-dom";
+
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -52,9 +54,13 @@ const EmployeeLogin = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit=async()=>{
-      console.log("HandleSubmit called")
-  }
+  const history = useHistory();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    history.push("/employeeDashboard");
+  };
+
   return (
     <div className="App">
       <header>
@@ -109,15 +115,15 @@ const EmployeeLogin = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onSubmit={handleSubmit}
+              onClick={(e) => {
+                handleSubmit(e);
+              }}
             >
               Log In
             </Button>
           </form>
         </div>
-        <Box mt={8}>
-          {/* <Copyright /> */}
-        </Box>
+        <Box mt={8}>{/* <Copyright /> */}</Box>
       </Container>
     </div>
   );
