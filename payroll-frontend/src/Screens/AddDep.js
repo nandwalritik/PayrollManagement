@@ -38,6 +38,7 @@ const AddDep=()=>{
                 name='dep_ID'
                 value={dep.dep_ID}
                 onChange={handleChange}
+                required
               />
             </div>
             <div className='form-control'>
@@ -48,6 +49,7 @@ const AddDep=()=>{
                 name='dep_Name'
                 value={dep.dep_Name}
                 onChange={handleChange}
+                required
               />
             </div>
             
@@ -59,6 +61,7 @@ const AddDep=()=>{
                 name='org_Name'
                 value={dep.org_Name}
                 onChange={handleChange}
+                required
               />
             </div>
             
