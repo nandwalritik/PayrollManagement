@@ -80,26 +80,26 @@ const AdminLogin = () => {
     
     e.preventDefault();
     history.push("/adminDashboard");
-    fetch("http://localhost:3003/api/adminLogin", {
-      method: "POST",
-      body: body,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        if (res.message === "Auth.verified") {
-          history.push("/adminDashboard");
-        }else{
-          handleClickOpen();
-          setMessage(res.message)
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // fetch("http://localhost:3003/api/adminLogin", {
+    //   method: "POST",
+    //   body: body,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.message === "Auth.verified") {
+    //       history.push("/adminDashboard");
+    //     }else{
+    //       handleClickOpen();
+    //       setMessage(res.message)
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   return (

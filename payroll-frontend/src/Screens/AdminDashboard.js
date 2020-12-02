@@ -4,9 +4,9 @@ import "../StyleSheets/Welcome.css";
 import "../StyleSheets/AdminOptions.css";
 import Modal from "react-modal";
 import { Redirect } from "react-router-dom";
-import ReactDOM from 'react-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus,faPen } from '@fortawesome/free-solid-svg-icons';
+import ReactDOM from "react-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 
 const AdminDashboard = () => {
@@ -14,7 +14,7 @@ const AdminDashboard = () => {
   const [adminModal, setAdminmodal] = useState(false);
   const [userModal, setUsermodal] = useState(false);
   // console.log("Value set to ", showId);
-  let history = useHistory()
+  let history = useHistory();
 
   return (
     <div className="App">
@@ -23,17 +23,19 @@ const AdminDashboard = () => {
         <hr className="Underline" />
         <img src={logo} alt="logo"></img>
       </header>
-      <div className='Login' style={{marginTop:'5em'}}>
-        <div className='Login-button'>
-          <FontAwesomeIcon icon={faPlus} onClick={()=>history.push('/adminAddInfo')}/>
+      <div className="Login" style={{ marginTop: "5em" }}>
+        <div className="Login-button" onClick={() => history.push("/adminAddInfo")}>
+          <FontAwesomeIcon
+            icon={faPlus}
+          />
           <h4>Add Info</h4>
         </div>
-        <div className='Login-button'>
+        <div className="Login-button">
           <FontAwesomeIcon icon={faPen} />
           <h4>Update Info</h4>
         </div>
       </div>
-      
+
       <div className="Film"></div>
     </div>
   );

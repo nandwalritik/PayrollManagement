@@ -116,7 +116,7 @@ const EmployeeLogin = () => {
           </form>
         </div>
         <Box mt={8}>
-          <Copyright />
+          {/* <Copyright /> */}
         </Box>
       </Container>
     </div>
