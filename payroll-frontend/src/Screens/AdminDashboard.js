@@ -23,11 +23,24 @@ const AdminDashboard = () => {
         <hr className="Underline" />
         <img src={logo} alt="logo"></img>
       </header>
-      <div className="Login" style={{ marginTop: "5em" }}>
-        <div className="Login-button" onClick={() => history.push("/adminAddInfo")}>
-          <FontAwesomeIcon
-            icon={faPlus}
-          />
+      <div
+        className="Login"
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          alignContent: "center",
+          alignSelf: "center",
+          display: "flex",
+          flexDirection: "row",
+          // width: "80%",
+          // backgroundColor: "grey",
+        }}
+      >
+        <div
+          className="Login-button"
+          onClick={() => history.push("/adminAddInfo")}
+        >
+          <FontAwesomeIcon icon={faPlus} />
           <h4>Add Info</h4>
         </div>
         <div className="Login-button">

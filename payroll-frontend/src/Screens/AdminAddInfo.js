@@ -14,7 +14,7 @@ const AdminAddInfo=()=>{
         <hr className="Underline" />
         <img src={logo} alt="logo"></img>
       </header>
-      <div className='Login' style={{marginTop:'5em'}}>
+      <div className='Login' style={{justifyContent:"center",alignItems:"center",display:"flex",flexDirection:"row"}}>
         <div className='Login-button' onClick={()=>history.push('/addEmployee')}>
           <FontAwesomeIcon icon={faUser} />
           <h4>Employee</h4>
