@@ -1,7 +1,7 @@
 const uuid = require("uuid");
 const db = require("../db");
 const Helper = require("./Helper");
-const create = async (req, res) => {
+const createAdmin = async (req, res) => {
   if (!req.body.username || !req.body.password) {
     return res
       .status(400)
@@ -31,7 +31,7 @@ const create = async (req, res) => {
   }
 };
 const adminLogin = async (req, res) => {
-  console.log(req)
+  console.log(req);
   if (!req.body.email || !req.body.password) {
     return res
       .status(400)
@@ -56,10 +56,41 @@ const adminLogin = async (req, res) => {
         .send({ message: "The credentials you provided is incorrect" });
     }
     const token = Helper.generateToken(rows[0].email);
-    return res.status(200).send({ message:"Auth.verified",token:token });
-  }catch(error){
-    return res.status(400).send({message:error});
+    return res.status(200).send({ message: "Auth.verified", token: token });
+  } catch (error) {
+    return res.status(400).send({ message: error });
   }
 };
-
-module.exports = { create,adminLogin };
+const createEmployee = async (req, res) => {
+  const query = `INSERT INTO Employee(paid_leave_taken,encashed_leave_this_month,encashed_leave_till_date,e_id,doj,name,dob,age,years_of_service,address,city,state,pincode) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) returning *`;
+  const values = [
+    req.body.paid_leave_taken,
+    req.body.encashed_leave_this_month,
+    req.body.encashed_leave_till_date,
+    uuid.v4(),
+    req.body.doj,
+    req.body.name,
+    req.body.dob,
+    req.body.age,
+    req.body.years_of_service,
+    req.body.address,
+    req.body.city,
+    req.body.state,
+    req.body.pincode,
+  ];
+  try {
+    const { rows } = await db.query(query, values);
+    // const token = Helper.generateToken(rows[0].e_id);
+    // console.log("This is token ",token)
+    console.log(rows);
+    return res.status(201).send({ message: "User.Added" });
+  } catch (err) {
+    if (err.routine === "_bt_check_unique") {
+      return res
+        .status(400)
+        .send({ message: "Email address is already taken" });
+    }
+    return res.status(400).send(err);
+  }
+};
+module.exports = { createAdmin, adminLogin, createEmployee };
