@@ -4,6 +4,7 @@ import "../StyleSheets/Welcome.css";
 import Modal from "react-modal";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+
 const Welcome = () => {
   const [showId, setShowid] = useState(0);
   const [adminModal, setAdminmodal] = useState(false);

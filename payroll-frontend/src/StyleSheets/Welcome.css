@@ -3,189 +3,195 @@
   background: url("../Assets/squares.png") no-repeat;
   background-position: 3em 9em;
   min-height: 80vh;
-  font-family: 'Lato', sans-serif;
-  position:relative;
+  font-family: "Lato", sans-serif;
+  position: relative;
 }
 
-header{
-  margin:0 4em 2em;
-  position:relative;
+header {
+  margin: 0 4em 2em;
+  position: relative;
 }
 
-header h1{
-  font-weight:normal;
+header h1 {
+  font-weight: normal;
 }
 
-header hr{
-  background-color:#8ee3e3;
-  border:none;
-  height:2px;
+header hr {
+  background-color: #8ee3e3;
+  border: none;
+  height: 2px;
 }
 
-header img{
-  position:absolute;
-  right:4em;
-  bottom:-2.5em;
-  height:6em;
-  width:6em;
+header img {
+  position: absolute;
+  right: 4em;
+  bottom: -2.5em;
+  height: 6em;
+  width: 6em;
 }
 
-.Login{
-  margin-top:10em;
+.Login {
+  margin-top: 10em;
 }
 
-.Login-button{
-  display:block;
-  text-align:center;
-  margin:2em auto;
-  width:15em;
+.Login-button {
+  display: block;
+  text-align: center;
+  margin: 2em auto;
+  width: 15em;
   background-color: #fff;
-  border:2px solid #8ee3e3;
-  border-radius:1em;
-  padding:1em 0;
+  border: 2px solid #8ee3e3;
+  border-radius: 1em;
+  padding: 1em 0;
   letter-spacing: 0.125em;
-  word-spacing: .15em;
-  font-size:1.1em;
-  color:#444;
+  word-spacing: 0.15em;
+  font-size: 1.1em;
+  color: #444;
 }
 
-.Login-button:hover{
-  border-color: #18a0f8;
+.Login-button:hover {
+  border-color: rgb(24, 160, 248);
 }
 
-.Login-button:focus{
-  outline:none;
+.Login-button:focus {
+  outline: none;
 }
 
-.Film{
-  width:100vw;
-  height:100vh;
-  position:absolute;
-  left:0;
-  top:0;
-  background-color:rgba(40,40,40,0.5);
-  z-index:2;
-  display:none;
+.Login-button .svg-inline--fa {
+  width: 3rem;
+  height: 3rem;
+  fill: #8ee3e3;
 }
 
-.Login-form{
-  text-align:center;
-  color:#444;
+.Film {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(40, 40, 40, 0.5);
+  z-index: 2;
+  display: none;
+}
+
+.Login-form {
+  text-align: center;
+  color: #444;
   background-color: #fff;
-  border:2px solid #18a0f8;
-  border-radius:1em;
-  width:50vw;
-  margin:0 auto;
-  padding:2em 0;
-  z-index:4;
-  position:absolute;
-  top:12vh;
-  left:25vw;
-  display:none;
+  border: 2px solid #18a0f8;
+  border-radius: 1em;
+  width: 50vw;
+  margin: 0 auto;
+  padding: 2em 0;
+  z-index: 4;
+  position: absolute;
+  top: 12vh;
+  left: 25vw;
+  display: none;
 }
 
-.Login-form .Back{
-  position:relative;
-  left:22vw;
-  outline:none;
-  border:none;
-  background-color:#fff;
-  font-size:1.7em;
+.Login-form .Back {
+  position: relative;
+  left: 22vw;
+  outline: none;
+  border: none;
+  background-color: #fff;
+  font-size: 1.7em;
   color: #8ee3e3;
 }
 
-.Login-form .Back:hover{
-  color:#18a0f8;
+.Login-form .Back:hover {
+  color: #18a0f8;
 }
 
-.Login-form h1{
-  font-weight:600;
-  word-spacing: .2em;
-  letter-spacing: .05em;
-  margin-bottom:2em;
+.Login-form h1 {
+  font-weight: 600;
+  word-spacing: 0.2em;
+  letter-spacing: 0.05em;
+  margin-bottom: 2em;
 }
 
-.Login-form input{
-  display:block;
-  margin:0 auto 3em;
-  border:2px solid #8ee3e3;
-  border-radius:2em;
-  padding:0.7em 1em;
+.Login-form input {
+  display: block;
+  margin: 0 auto 3em;
+  border: 2px solid #8ee3e3;
+  border-radius: 2em;
+  padding: 0.7em 1em;
 }
 
-.Login-form input:hover{
-  border-color:#18a0f8;
+.Login-form input:hover {
+  border-color: #18a0f8;
 }
 
-.Login-form input:focus{
-  outline:none;
+.Login-form input:focus {
+  outline: none;
 }
 
-.Input-field{
-  width:40em;
-  height:1.5em;
+.Input-field {
+  width: 40em;
+  height: 1.5em;
 }
 
-.Login-form input[type="submit"]{
-  width:8em;
-  height:2.5em;
-  font-size:1.1em;
-  background-color:#fff;
-  color:#444;
+.Login-form input[type="submit"] {
+  width: 8em;
+  height: 2.5em;
+  font-size: 1.1em;
+  background-color: #fff;
+  color: #444;
 }
 
-.Error{
-  background-color:red;
-  display:none;
+.Error {
+  background-color: red;
+  display: none;
   width: 15em;
-  margin-left:5em;
-  padding:0.25em 0;
-  font-size:0.75em;
+  margin-left: 5em;
+  padding: 0.25em 0;
+  font-size: 0.75em;
   color: white;
   position: relative;
   top: -3em;
   border-radius: 0.6em;
 }
 
-@media (max-width:1024px) {
-  .Login-form{
-    top:20vh;
+@media (max-width: 1024px) {
+  .Login-form {
+    top: 20vh;
   }
-  .Input-field{
+  .Input-field {
     width: 30em;
   }
 }
 
-@media (max-width:768px) {
-  .App{
+@media (max-width: 768px) {
+  .App {
     padding: 2em 2em 0;
   }
   header h1 {
-    font-size:1.75em;
+    font-size: 1.75em;
   }
-  header img{
+  header img {
     right: 2.5em;
     bottom: -2em;
-    width:5em;
-    height:5em;
+    width: 5em;
+    height: 5em;
   }
   .Login-form .Back {
     left: 20vw;
   }
-  .Login-form h1{
+  .Login-form h1 {
     font-size: 1.75em;
   }
-  .Input-field{
+  .Input-field {
     width: 20em;
   }
   .Login-form input[type="submit"] {
-    font-size:1em;
+    font-size: 1em;
   }
 }
 
-@media (max-width:425px) {
-  .App{
-    padding:0.5em 0;
+@media (max-width: 425px) {
+  .App {
+    padding: 0.5em 0;
     background-size: 20% 20%;
     background-position: 1em 5em;
   }
@@ -193,20 +199,20 @@ header img{
     margin: 0 2em;
   }
   header h1 {
-    font-size:1.25em;
+    font-size: 1.25em;
   }
-  header img{
+  header img {
     right: 2em;
     bottom: -0.75em;
-    width:2em;
-    height:2em;
+    width: 2em;
+    height: 2em;
   }
   .Login {
     margin-top: 5em;
   }
   .Login-button {
     width: 12.5em;
-    font-size:1em;
+    font-size: 1em;
     margin-top: 0;
   }
   .Login-form {
@@ -217,15 +223,15 @@ header img{
     left: 32vw;
     top: -1.5vh;
   }
-  .Login-form h1{
-    font-size: 1.60em;
+  .Login-form h1 {
+    font-size: 1.6em;
   }
   .Login-form input[type="submit"] {
-    font-size:0.8em;
+    font-size: 0.8em;
   }
 }
 
-@media (max-width:375px) {
+@media (max-width: 375px) {
   .App {
     padding: 1.5em 0;
     background-position: 1em 7em;
