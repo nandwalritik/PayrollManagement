@@ -6,7 +6,7 @@ const db = require("./db");
 const Auth = require("./src/middleware/Auth");
 const User = require("./src/queries");
 const dotenv = require("dotenv");
-const cors = require('cors')
+const cors = require("cors");
 // app.use(cors())
 dotenv.config();
 app.use(bodyParser.json());
@@ -20,8 +20,9 @@ app.use(
 app.get("/", (request, response) => {
   response.json({ info: "Node.js, Express, and Postgres API" });
 });
-app.post("/api/adminSignup", User.create);
-app.post('/api/adminLogin',User.adminLogin)
+app.post("/api/adminSignup", User.createAdmin);
+app.post("/api/adminLogin", User.adminLogin);
+app.post("/api/addEmployee", User.createEmployee);
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
