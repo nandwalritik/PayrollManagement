@@ -103,3 +103,53 @@ Variables
   margin-top: 3rem;
   margin-bottom: 3em;
 }
+
+/* search-bar */
+.search {
+  margin: 0 auto;
+  max-width: var(--fixed-width);
+  display: grid;
+  align-items: center;
+}
+
+.search h4 {
+  font-weight: 50;
+}
+
+.search-container button {
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+
+.search-container input {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: #8ee3e3 solid 0.25px;
+}
+
+.item {
+  max-width: var(--fixed-width);
+  margin: 0 auto;
+  background: var(--clr-grey-10);
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+}
+
+.item .btn {
+  display: inline;
+  border: 0.1rem solid black;
+  padding: 1rem;
+  float: right;
+  margin: auto 0.2rem;
+}

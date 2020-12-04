@@ -5,6 +5,7 @@ import EmployeeLogin from "./Screens/EmployeeLogin";
 import Welcome from "./Screens/Welcome";
 import AdminDashboard from './Screens/AdminDashboard';
 import AdminAddInfo from './Screens/AdminAddInfo';
+import AdminUpdateInfo from './Screens/AdminUpdateInfo';
 import AddEmployee from './Screens/AddEmployee';
 import AddGrade from './Screens/AddGrade';
 import AddDep from './Screens/AddDep';
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/employeeLogin" component={EmployeeLogin}/>
         <Route path="/adminDashboard" component={AdminDashboard}/>
         <Route path='/adminAddInfo' component={AdminAddInfo}/>
+        <Route path='/adminUpdateInfo' component={AdminUpdateInfo}/>
         <Route path='/addEmployee' component={AddEmployee}/>
         <Route path='/addGrade' component={AddGrade}/>
         <Route path='/addDep' component={AddDep}/>
