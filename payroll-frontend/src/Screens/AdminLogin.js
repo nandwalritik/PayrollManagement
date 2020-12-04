@@ -77,8 +77,9 @@ const AdminLogin = () => {
   const history = useHistory();
 
   const handleSubmit = async (e) => {
+    
+    e.preventDefault();
     history.push("/adminDashboard");
-    /*e.preventDefault();
     fetch("http://localhost:3003/api/adminLogin", {
       method: "POST",
       body: body,
@@ -98,7 +99,7 @@ const AdminLogin = () => {
       })
       .catch((err) => {
         console.log(err);
-      });*/
+      });
   };
 
   return (
