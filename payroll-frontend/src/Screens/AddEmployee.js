@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import logo from "../Assets/Logo.png";
 import "../StyleSheets/Welcome.css";
 import "../StyleSheets/AdminOptions.css";
 
 
-const AddEmployee=()=>{
-  const [person,setPerson]=useState({Name:'',ID:'',DOB:'',City:'',State:'',Pincode:'',Address:'',Dept_ID:'',Grade_ID:'',OrgName:'',DOJ:'',PaidLeaveTaken:'',EncashedLeaveThisMonth:'',EncashedLeaveTillDate:''})
+const AddEmployee=({props})=>{
+  console.log(props);
+  if(typeof props === 'undefined')
+  props={Name:'',ID:'',DOB:'',City:'',State:'',Pincode:'',Address:'',Dept_ID:'',Grade_ID:'',OrgName:'',DOJ:'',PaidLeaveTaken:'',EncashedLeaveThisMonth:'',EncashedLeaveTillDate:''};
+
+  const [person,setPerson]=useState({Name:props.Name,ID:props.ID,DOB:props.DOB,City:props.City,State:props.State,Pincode:props.PinCode,Address:props.Address,Dept_ID:props.Dept_ID,Grade_ID:props.Grade_ID,OrgName:props.OrgName,DOJ:props.DOJ,PaidLeaveTaken:props.PaidLeaveTaken,EncashedLeaveThisMonth:props.EncashedLeaveThisMonth,EncashedLeaveTillDate:props.EncashedLeaveTillDate})
   const [people, setPeople] = useState([]);
 
   const handleSubmit =(e) => {
@@ -24,11 +27,11 @@ const AddEmployee=()=>{
   return (
     <>
       <div className='App'>
-        <header>
+        {/* <header>
           <h1>Payroll Management System</h1>
           <hr className="Underline" />
           <img src={logo} alt="logo"></img>
-        </header>
+        </header> */}
         <form className='form' onSubmit={handleSubmit}>
           <div className='grouping'>
             <h3>Basic Details</h3>
@@ -197,7 +200,7 @@ const AddEmployee=()=>{
             </div>
           </div>
           
-          <button type='submit'>add Employee</button>
+          <button type='submit'>add / Update</button>
         </form>
         
       </div>
