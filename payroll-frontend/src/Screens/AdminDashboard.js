@@ -43,7 +43,8 @@ const AdminDashboard = () => {
           <FontAwesomeIcon icon={faPlus} />
           <h4>Add Info</h4>
         </div>
-        <div className="Login-button">
+        <div className="Login-button"
+            onClick={() => history.push("/adminUpdateInfo")}>
           <FontAwesomeIcon icon={faPen} />
           <h4>Update Info</h4>
         </div>
