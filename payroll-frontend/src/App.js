@@ -10,6 +10,9 @@ import AddEmployee from './Screens/AddEmployee';
 import AddGrade from './Screens/AddGrade';
 import AddDep from './Screens/AddDep';
 import EmployeeDrawer from "./Screens/EmployeeDrawer";
+import Reports from "./Screens/Reports";
+import Attendance from "./Screens/Attendance";
+import AttendanceLog from "./Screens/AttendanceLog";
 
 const App = () => {
   return (
@@ -25,7 +28,9 @@ const App = () => {
         <Route path='/addGrade' component={AddGrade}/>
         <Route path='/addDep' component={AddDep}/>
         <Route path='/employeeDashboard' component={EmployeeDrawer}/>
-
+        <Route path='/reports' component={Reports}/>
+        <Route path='/attendance' component={Attendance}/>
+        <Route path='/attendancelog' component={AttendanceLog}/>
       </div>
     </Router>
   );

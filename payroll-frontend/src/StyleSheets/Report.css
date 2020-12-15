@@ -1,0 +1,42 @@
+
+.report-wrapper {
+	padding: 8px;
+	margin-top: 150px;
+	background-color: transparent;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.part {
+	font-size: 1.1em;
+	font-weight: 800;
+	border-bottom: 1px solid grey;
+	margin-bottom: 10px;
+	padding-bottom: 8px;
+}
+	
+.pair {
+	color: black;
+	padding: 8px;
+	margin-bottom: 8px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.emt {
+	text-align: right;
+	width: 25%;
+	color: #242424;
+}
+.val {
+	border: 1px solid blue;
+	width: 70%;
+	background-color: lightblue;
+	opacity: 0.8;
+	margin-left: 20px;
+	padding-left: 6px;
+	font-size: 1.1rem;
+}
