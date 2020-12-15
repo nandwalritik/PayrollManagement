@@ -62,18 +62,16 @@ const adminLogin = async (req, res) => {
   }
 };
 const createEmployee = async (req, res) => {
-  const query = `INSERT INTO Employee(paid_leave_taken,encashed_leave_this_month,encashed_leave_till_date,e_id,doj,name,dob,age,years_of_service,address,city,state,pincode,email,password,org_name,dept_id,grade_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18) returning *`;
+  const query = `INSERT INTO Employee(paid_leave_taken,encashed_leave_this_month,encashed_leave_till_date,e_id,doj,name,dob,address,city,state,pincode,email,password,org_name,dept_id,grade_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18) returning *`;
   const hashPassword = Helper.hashPassword(req.body.password);
   const values = [
-    req.body.paid_leave_taken,
-    req.body.encashed_leave_this_month,
-    req.body.encashed_leave_till_date,
+    0,
+    0,
+    0,
     uuid.v4(),
     req.body.doj,
     req.body.name,
     req.body.dob,
-    req.body.age,
-    req.body.years_of_service,
     req.body.address,
     req.body.city,
     req.body.state,
@@ -150,14 +148,17 @@ const employeeLogin = async(req,res)=>{
     return res.status(400).send({ message: error });
   }
 }
-// const updateEmployeedata = async(req,res)=>{
-//   const query 
-// }
+const updateEmployeedata = async(req,res, updateData)=>{
+  updateData.forEach((data) => {
+
+  });
+}
 module.exports = {
   createAdmin,
   adminLogin,
   createEmployee,
   deleteEmployee,
   getAllEmployees,
+  updateEmployeedata,
   employeeLogin
 };

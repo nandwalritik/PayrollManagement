@@ -164,42 +164,6 @@ const AddEmployee=({props})=>{
               />
             </div>
           </div>
-
-          <div className='grouping'>
-            <h3>Leave Details</h3>
-            <hr className="Underline" />
-            <div className='form-control'>
-              <label htmlFor='PaidLeaveTaken'>Paid Leave Taken : </label>
-              <input
-                type='number'
-                id='PaidLeaveTaken'
-                name='PaidLeaveTaken'
-                value={person.PaidLeaveTaken}
-                onChange={handleChange}
-              />
-            </div>
-            <div className='form-control'>
-              <label htmlFor='EncashedLeaveThisMonth'>Encashed Leave This Month : </label>
-              <input
-                type='number'
-                id='EncashedLeaveThisMonth'
-                name='EncashedLeaveThisMonth'
-                value={person.EncashedLeaveThisMonth}
-                onChange={handleChange}
-              />
-            </div>
-            <div className='form-control'>
-              <label htmlFor='EncashedLeaveTillDate'>Encashed Leave Till Date : </label>
-              <input
-                type='number'
-                id='EncashedLeaveTillDate'
-                name='EncashedLeaveTillDate'
-                value={person.EncashedLeaveTillDate}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          
           <button type='submit'>add / Update</button>
         </form>
         
