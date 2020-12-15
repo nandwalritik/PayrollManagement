@@ -13,7 +13,6 @@ import EmployeeDrawer from "./Screens/EmployeeDrawer";
 import Reports from "./Screens/Reports";
 import Attendance from "./Screens/Attendance";
 import AttendanceLog from "./Screens/AttendanceLog";
-
 const App = () => {
   return (
     <Router>
@@ -35,4 +34,4 @@ const App = () => {
     </Router>
   );
 };
-export default App
+export default App;
