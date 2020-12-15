@@ -44,13 +44,13 @@ const EmployeeDashboard = () => {
           <FontAwesomeIcon icon={faChartLine} />
           <h4>Generate Reports</h4>
         </div>
-        <div
+        {/* <div
           className="Login-button"
           onClick={() => history.push("/markAttendance")}
         >
           <FontAwesomeIcon icon={faHandPaper} />
           <h4>Mark Attendance</h4>
-        </div>
+        </div> */}
       </div>
 
       <div className="Film"></div>
