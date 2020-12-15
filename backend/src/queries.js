@@ -248,6 +248,69 @@ const updateEmployeedata = async (req, res) => {
       ? req.body.grade_id
       : data.grade_id,
   ];
+  try {
+    const { rows } = await db.query(updateQuery, values);
+    console.log(rows);
+    return res
+      .status(200)
+      .send({ message: "User data updated successfully", data: rows });
+  } catch (err) {
+    return res.status(400).send({ message: err });
+  }
+};
+const addDepartment = async (req, res) => {
+  const query = `INSERT into department(
+    dept_id,
+    dept_name,
+    org_name,
+    email)
+    VALUES($1,$2,$3,$4)`;
+  const values = [
+    uuid.v4(),
+    req.body.dept_name,
+    req.body.org_name,
+    req.body.email,
+  ];
+  try {
+    const { rows } = await db.query(query, values);
+    console.log(rows);
+    return res.status(200).send({
+      message: "Successfully added employee to department",
+      data: rows,
+    });
+  } catch (err) {
+    return res.status(400).send({ message: err });
+  }
+};
+const addGrade = async (req, res) => {
+  const query = `INSERT into gradepay(
+    grade_id,
+    grade_name,
+    basic_pay,
+    grade_pf,
+    grade_bonus,
+    grade_ta,
+    grade_da,
+    email
+  ) VALUES($1,$2,$3,$4,$5,$6,&,$8)`;
+  const values = [
+    uuid.v4(),
+    req.body.grade_name,
+    req.body.grade_pay,
+    req.body.grade_pf,
+    req.body.grade_bonus,
+    req.body.grade_ta,
+    req.body.grade_da,
+    req.body.email,
+  ];
+  try {
+    const { rows } = await db.query(query, values);
+    return res
+      .status(200)
+      .send({ message: "Grade added for employee", data: rows });
+  } catch (err) {
+    return res.status(400).send({ message: err });
+  }
 };
 module.exports = {
   createAdmin,
@@ -258,5 +321,7 @@ module.exports = {
   employeeLogin,
   getEmployeeProfile,
   generateReports,
-  updateEmployeedata
+  updateEmployeedata,
+  addDepartment,
+  addGrade
 };
