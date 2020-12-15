@@ -262,15 +262,9 @@ const addDepartment = async (req, res) => {
   const query = `INSERT into department(
     dept_id,
     dept_name,
-    org_name,
-    email)
-    VALUES($1,$2,$3,$4)`;
-  const values = [
-    uuid.v4(),
-    req.body.dept_name,
-    req.body.org_name,
-    req.body.email,
-  ];
+    org_name)
+    VALUES($1,$2,$3)`;
+  const values = [req.body.dept_id, req.body.dept_name, req.body.org_name];
   try {
     const { rows } = await db.query(query, values);
     console.log(rows);
@@ -279,6 +273,9 @@ const addDepartment = async (req, res) => {
       data: rows,
     });
   } catch (err) {
+    if (err.routine === "_bt_check_unique") {
+      return res.status(400).send({ message: "Department Id already exists" });
+    }
     return res.status(400).send({ message: err });
   }
 };
@@ -290,18 +287,16 @@ const addGrade = async (req, res) => {
     grade_pf,
     grade_bonus,
     grade_ta,
-    grade_da,
-    email
-  ) VALUES($1,$2,$3,$4,$5,$6,&,$8)`;
+    grade_da)
+    VALUES($1,$2,$3,$4,$5,$6,$7)`;
   const values = [
-    uuid.v4(),
+    req.body.grade_id,
     req.body.grade_name,
     req.body.grade_pay,
     req.body.grade_pf,
     req.body.grade_bonus,
     req.body.grade_ta,
     req.body.grade_da,
-    req.body.email,
   ];
   try {
     const { rows } = await db.query(query, values);
@@ -309,6 +304,9 @@ const addGrade = async (req, res) => {
       .status(200)
       .send({ message: "Grade added for employee", data: rows });
   } catch (err) {
+    if (err.routine === "_bt_check_unique") {
+      return res.status(400).send({ message: "Grade Id already exists" });
+    }
     return res.status(400).send({ message: err });
   }
 };
@@ -323,5 +321,5 @@ module.exports = {
   generateReports,
   updateEmployeedata,
   addDepartment,
-  addGrade
+  addGrade,
 };
