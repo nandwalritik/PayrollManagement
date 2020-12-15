@@ -3,19 +3,16 @@ import "../StyleSheets/Welcome.css";
 import "../StyleSheets/AdminOptions.css";
 
 
-const AddEmployee=({props})=>{
-  console.log(props);
-  if(typeof props === 'undefined')
-  props={Name:'',ID:'',DOB:'',City:'',State:'',Pincode:'',Address:'',Dept_ID:'',Grade_ID:'',OrgName:'',DOJ:'',PaidLeaveTaken:'',EncashedLeaveThisMonth:'',EncashedLeaveTillDate:''};
+const AddEmployee=()=>{
 
-  const [person,setPerson]=useState({Name:props.Name,ID:props.ID,DOB:props.DOB,City:props.City,State:props.State,Pincode:props.PinCode,Address:props.Address,Dept_ID:props.Dept_ID,Grade_ID:props.Grade_ID,OrgName:props.OrgName,DOJ:props.DOJ,PaidLeaveTaken:props.PaidLeaveTaken,EncashedLeaveThisMonth:props.EncashedLeaveThisMonth,EncashedLeaveTillDate:props.EncashedLeaveTillDate})
+  const [person,setPerson]=useState({Name:'',ID:'',DOB:'',City:'',State:'',Pincode:'',Address:'',Dept_ID:'',Grade_ID:'',OrgName:'',DOJ:''})
   const [people, setPeople] = useState([]);
 
   const handleSubmit =(e) => {
     e.preventDefault();
     setPeople([...people,person])
 
-    setPerson({Name:'',ID:'',DOB:'',City:'',State:'',Pincode:'',Address:'',Dept_ID:'',Grade_ID:'',OrgName:'',DOJ:'',PaidLeaveTaken:'',EncashedLeaveThisMonth:'',EncashedLeaveTillDate:''})
+    setPerson({Name:'',ID:'',DOB:'',City:'',State:'',Pincode:'',Address:'',Dept_ID:'',Grade_ID:'',OrgName:'',DOJ:''})
   };
 
   const handleChange=(e)=>{
