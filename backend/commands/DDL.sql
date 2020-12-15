@@ -20,11 +20,8 @@ create table department(
 	dept_id varchar(255),
 	dept_name varchar(255),
 	org_name varchar(255),
-	email varchar(255) unique,
 	primary key (dept_id),
 	foreign key (org_name) references organisation on delete
-	set null,
-		foreign key (email) references employee on delete
 	set null
 );
 create table gradepay(
@@ -35,10 +32,7 @@ create table gradepay(
 	grade_bonus int,
 	grade_ta varchar(255),
 	grade_da varchar(255),
-	email varchar(255) unique,
-	primary key (grade_id),
-	foreign KEY (email) references employee on delete
-	set null
+	primary key (grade_id)
 );
 create table employee(
 	paid_leave_taken int,
