@@ -1,20 +1,27 @@
 
 .report-wrapper {
 	padding: 8px;
+	padding-left: 4em;
 	margin-top: 150px;
 	background-color: transparent;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	width: 80%;
 }
 
+.top  {
+	width: 60%;
+	align-items: left;
+	padding-left: 10em;
+	font-size: 1.1em;
+}
 .part {
 	font-size: 1.1em;
-	font-weight: 800;
+	font-weight: 600;
 	border-bottom: 1px solid grey;
-	margin-bottom: 10px;
-	padding-bottom: 8px;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
 }
 	
 .pair {
@@ -28,8 +35,10 @@
 
 .emt {
 	text-align: right;
-	width: 25%;
+	width: 30%;
 	color: #242424;
+	font-size: 1em;
+	box-sizing:border-box;
 }
 .val {
 	border: 1px solid blue;
@@ -40,3 +49,31 @@
 	padding-left: 6px;
 	font-size: 1.1rem;
 }
+
+.wrapper {
+	width: 100%;
+	align-items: center;
+	padding: 8px;
+	margin-top: 150px;
+	background-color: transparent;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+.attendance-wrapper {
+	width: 50%;
+	align-items:right;
+	padding-left: 10em;
+}
+
+.attendance-wrapper .pair .val {
+	width: 50%;
+}
+@media (max-width: 768px) {
+	.top {
+		width:100%;
+		padding-left: 1.1em;
+	}
+}
+

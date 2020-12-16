@@ -63,6 +63,7 @@ const adminLogin = async (req, res) => {
 };
 const createEmployee = async (req, res) => {
   const query = `INSERT INTO Employee(
+    present,
     paid_leave_taken,
     encashed_leave_this_month,
     encashed_leave_till_date,
@@ -85,6 +86,7 @@ const createEmployee = async (req, res) => {
     returning *`;
   const hashPassword = Helper.hashPassword(req.body.password);
   const values = [
+    0,
     0,
     0,
     0,
