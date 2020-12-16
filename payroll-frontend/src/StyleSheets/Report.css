@@ -1,0 +1,79 @@
+
+.report-wrapper {
+	padding: 8px;
+	padding-left: 4em;
+	margin-top: 150px;
+	background-color: transparent;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+}
+
+.top  {
+	width: 60%;
+	align-items: left;
+	padding-left: 10em;
+	font-size: 1.1em;
+}
+.part {
+	font-size: 1.1em;
+	font-weight: 600;
+	border-bottom: 1px solid grey;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+	
+.pair {
+	color: black;
+	padding: 8px;
+	margin-bottom: 8px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.emt {
+	text-align: right;
+	width: 30%;
+	color: #242424;
+	font-size: 1em;
+	box-sizing:border-box;
+}
+.val {
+	border: 1px solid blue;
+	width: 70%;
+	background-color: lightblue;
+	opacity: 0.8;
+	margin-left: 20px;
+	padding-left: 6px;
+	font-size: 1.1rem;
+}
+
+.wrapper {
+	width: 100%;
+	align-items: center;
+	padding: 8px;
+	margin-top: 150px;
+	background-color: transparent;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+.attendance-wrapper {
+	width: 50%;
+	align-items:right;
+	padding-left: 10em;
+}
+
+.attendance-wrapper .pair .val {
+	width: 50%;
+}
+@media (max-width: 768px) {
+	.top {
+		width:100%;
+		padding-left: 1.1em;
+	}
+}
+

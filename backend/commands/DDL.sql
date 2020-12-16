@@ -5,7 +5,6 @@ create table admin(
 	password varchar(255),
 	primary key(email)
 );
-
 create table organisation(
 	org_name varchar(255),
 	admin_mail varchar(255),
@@ -17,16 +16,14 @@ create table organisation(
 	foreign key (admin_mail) references admin
 		on delete set null
 );
-
 create table department(
-	dept_id varchar(255) ,
+	dept_id varchar(255),
 	dept_name varchar(255),
 	org_name varchar(255),
 	primary key (dept_id),
-	foreign key (org_name) references organisation
-		on delete set null
+	foreign key (org_name) references organisation on delete
+	set null
 );
-
 create table gradepay(
 	grade_id varchar(255),
 	grade_name varchar(255),
@@ -37,8 +34,6 @@ create table gradepay(
 	grade_da varchar(255),
 	primary key (grade_id)
 );
-
-
 create table employee(
 	present int,
 	paid_leave_taken int,
@@ -51,7 +46,7 @@ create table employee(
 	address varchar(255),
 	city varchar(255),
 	state varchar(255),
-	pincode numeric(6,0),
+	pincode numeric(6, 0),
 	email varchar(255) unique,
 	password varchar(255),
 	org_name varchar(255),
@@ -65,7 +60,6 @@ create table employee(
 	foreign key (grade_id) references gradepay
 		on delete set null
 );
-
 create table extras(
 	ex_type varchar(255),
 	amount int,
@@ -74,11 +68,10 @@ create table extras(
 	foreign key (emp_mail) references employee
 		on delete set null
 );
-
 create table payroll(
 	transaction_id varchar(255),
 	month varchar(255),
-	year  varchar(255),
+	year varchar(255),
 	gross_pay varchar(255),
 	income_tax varchar(255),
 	emp_mail varchar(255),

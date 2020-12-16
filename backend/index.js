@@ -29,6 +29,8 @@ app.post("/api/employeeLogin", User.employeeLogin);
 app.get("/api/employeeDetails", User.getEmployeeProfile);
 app.get("/api/getReports", User.generateReports);
 app.post("/api/updateEmployeeData", User.updateEmployeedata);
+app.post("/api/addDepartment", User.addDepartment);
+app.post("/api/addGrade", User.addGrade);
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
