@@ -6,7 +6,7 @@ import Modal from "react-modal";
 import { Redirect } from "react-router-dom";
 import ReactDOM from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faFile, faPen, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 
 const EmployeeDrawer = () => {
@@ -36,7 +36,7 @@ const EmployeeDrawer = () => {
           alignSelf: "center",
           display: "flex",
           flexDirection: "row"}}
-      />
+      >
         <div
           className="Login-button"
           onClick={() => history.push("/reports")}
@@ -44,11 +44,18 @@ const EmployeeDrawer = () => {
           <FontAwesomeIcon icon={faFile} />
           <h4>Generate Report</h4>
         </div>
-        <div className="Login-button"
-            onClick={() => history.push("/attendance")}>
+        <div
+          className="Login-button"
+          onClick={() => history.push("/profile")}
+        >
+          <FontAwesomeIcon icon={faUser} />
+          <h4>My Profile</h4>
+        </div>
+        <div className="Login-button">
           <FontAwesomeIcon icon={faPen} />
           <h4>Mark Attendance</h4>
         </div>
+      </div>
       </div>
   );
 };

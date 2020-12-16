@@ -29,8 +29,12 @@ const Reports=()=>{
 						<div className='emt'> Year: </div>
 						<div className='val'>01</div>
 					</div>
+					<div className='pair'>
+						<div className='emt'> In-hand Salary: </div>
+						<div className='val'>01</div>
 					</div>
-					<div className='part'>Employee Salary</div>
+					</div>
+					<div className='part'>Employee Salary Breakdown</div>
 					<div className='pair'>
 						<div className='emt'> Gross Pay: </div>
 						<div className='val'>01</div>
@@ -43,15 +47,14 @@ const Reports=()=>{
 						<div className='emt'> Paid leave deduction: </div>
 						<div className='val'>01</div>
 					</div>
-				</div>
-				<div className='report-wrapper-in'>
-					<div className='part'>Extras </div>
 					<div className='pair'>
-						<div className='emt'> Extra Type: </div>
+						<div className='emt'> PF: </div>
 						<div className='val'>01</div>
 					</div>
+				</div>
+				<div className='report-wrapper-in'>
 					<div className='pair'>
-						<div className='emt'> Amount: </div>
+						<div className='emt'> Extras Amount: </div>
 						<div className='val'>01</div>
 					</div>
 					
