@@ -7,7 +7,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-const query = (text, params)=>{
+const query = (text, params) => {
   return new Promise((resolve, reject) => {
     pool
       .query(text, params)
@@ -18,6 +18,5 @@ const query = (text, params)=>{
         reject(err);
       });
   });
-}
-module.exports ={query}
-
+};
+module.exports = { query };

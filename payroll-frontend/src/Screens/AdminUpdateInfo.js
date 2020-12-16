@@ -23,7 +23,7 @@ const AdminUpdateInfo=()=>{
 
         const newEmp=testData.filter((e)=>{
             console.log(e.id,search)
-            return e.id===search
+            return e.id==search
         })
         // console.log(newEmp)
         if(newEmp.length===0)
