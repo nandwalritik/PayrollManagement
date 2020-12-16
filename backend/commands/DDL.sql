@@ -1,20 +1,20 @@
 create table admin(
 	admin_id varchar(255),
 	username varchar(255),
-	email varchar(255) unique,
+	email varchar(255) ,
 	password varchar(255),
-	primary key(admin_id)
+	primary key(email)
 );
 
 create table organisation(
 	org_name varchar(255),
-	admin_id varchar(255),
+	admin_mail varchar(255),
 	location varchar(255),
 	contact_number varchar(255),
 	paid_leave_limit int,
 	encashed_leave_limit int,
 	primary key (org_name),
-	foreign key (admin_id) references admin
+	foreign key (admin_mail) references admin
 		on delete set null
 );
 
@@ -40,6 +40,7 @@ create table gradepay(
 
 
 create table employee(
+	present int,
 	paid_leave_taken int,
 	encashed_leave_this_month int,
 	encashed_leave_till_date int,
@@ -56,7 +57,7 @@ create table employee(
 	org_name varchar(255),
 	dept_id varchar(255),
 	grade_id varchar(255),
-	primary key(e_id),
+	primary key(email),
 	foreign key (org_name) references organisation
 		on delete set null,
 	foreign key (dept_id) references department
@@ -68,9 +69,9 @@ create table employee(
 create table extras(
 	ex_type varchar(255),
 	amount int,
-	e_id varchar(255),
+	emp_mail varchar(255),
 	primary key (ex_type),
-	foreign key (e_id) references employee
+	foreign key (emp_mail) references employee
 		on delete set null
 );
 
@@ -80,11 +81,33 @@ create table payroll(
 	year  varchar(255),
 	gross_pay varchar(255),
 	income_tax varchar(255),
-	e_id varchar(255),
-	admin_id varchar(255),
+	emp_mail varchar(255),
+	admin_mail varchar(255),
 	primary key (transaction_id),
-	foreign key (e_id) references employee
+	foreign key (emp_mail) references employee
 		on delete set null,
-	foreign key (admin_id) references admin
+	foreign key (admin_mail) references admin
 		on delete set null
 );
+
+create function record_attendance() returns trigger as $record_attendance$
+	BEGIN
+		if date_part('day',current_date) = 1 then
+			new.encashed_leave_till_date := old.enchashed_leave_till_date + old.encashed_leave_this_month;
+		else
+			if new.present = 1 then
+				new.present := old.present+1;
+			end if;
+			if new.encashed_leave_this_month = 1 then
+					new.encashed_leave_this_month := old.encashed_leave_this_month + 1;
+			end if;
+			if new.paid_leave_taken = 1 then
+					new.paid_leave_taken := old.paid_leave_taken + 1;
+			end if;	
+		end if;
+		return new;
+	end;
+$record_attendance$ language plpgsql;
+
+create trigger record_attendance before update on employee
+	for each row execute procedure record_attendance();
