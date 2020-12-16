@@ -12,7 +12,6 @@ import AddDep from './Screens/AddDep';
 import EmployeeDrawer from "./Screens/EmployeeDrawer";
 import Reports from "./Screens/Reports";
 import Attendance from "./Screens/Attendance";
-import AttendanceLog from "./Screens/AttendanceLog";
 const App = () => {
   return (
     <Router>
@@ -29,7 +28,6 @@ const App = () => {
         <Route path='/employeeDashboard' component={EmployeeDrawer}/>
         <Route path='/reports' component={Reports}/>
         <Route path='/attendance' component={Attendance}/>
-        <Route path='/attendancelog' component={AttendanceLog}/>
       </div>
     </Router>
   );
