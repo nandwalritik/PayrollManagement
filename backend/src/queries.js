@@ -183,9 +183,9 @@ const getEmployeeProfile = async (req, res) => {
 };
 const generateReports = async (req, res) => {
   console.log(req);
-  const query = "SELECT * FROM employee natural join payroll where email = $1";
+  const query = "SELECT * FROM employee natural join payroll where email = $1 AND date_part('month',current_date)=$2 AND date_part('year',current_date)=$3";
   try {
-    const { rows } = await db.query(query, [req.body.email]);
+    const { rows } = await db.query(query, [req.body.email,req.body.month,req.body.year]);
     console.log(rows);
     return res.status(200).send({ message: "Report Data", data: rows });
   } catch (error) {
