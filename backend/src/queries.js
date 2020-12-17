@@ -31,7 +31,7 @@ const createAdmin = async (req, res) => {
   }
 };
 const adminLogin = async (req, res) => {
-  console.log(req);
+  // console.log(req);
   if (!req.body.email || !req.body.password) {
     return res
       .status(400)
@@ -62,7 +62,7 @@ const adminLogin = async (req, res) => {
   }
 };
 const createEmployee = async (req, res) => {
-  const query = `INSERT INTO Employee(
+  const query = `INSERT INTO employee(
     present,
     paid_leave_taken,
     encashed_leave_this_month,
@@ -71,8 +71,6 @@ const createEmployee = async (req, res) => {
     doj,
     name,
     dob,
-    age,
-    years_of_service,
     address,
     city,
     state,
@@ -82,9 +80,10 @@ const createEmployee = async (req, res) => {
     org_name,
     dept_id,
     grade_id)
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18) 
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) 
     returning *`;
-  const hashPassword = Helper.hashPassword(req.body.password);
+  const hashPassword = Helper.hashPassword("abcd1234");
+  console.log(req.body);
   const values = [
     0,
     0,
@@ -109,8 +108,9 @@ const createEmployee = async (req, res) => {
     // const token = Helper.generateToken(rows[0].e_id);
     // console.log("This is token ",token)
     console.log(rows);
-    return res.status(201).send({ message: "User.Added" });
+    return res.status(201).send({ message: "User Added" });
   } catch (err) {
+    console.log(err);
     if (err.routine === "_bt_check_unique") {
       return res
         .status(400)
@@ -268,18 +268,27 @@ const addDepartment = async (req, res) => {
     dept_name,
     org_name)
     VALUES($1,$2,$3)`;
-  const values = [req.body.dept_id, req.body.dept_name, req.body.org_name];
+  const values = [uuid.v4(), req.body.dept_name, req.body.org_name];
   try {
     const { rows } = await db.query(query, values);
     console.log(rows);
     return res.status(200).send({
-      message: "Successfully added employee to department",
+      message: "Department Added Successfully",
       data: rows,
     });
   } catch (err) {
     if (err.routine === "_bt_check_unique") {
-      return res.status(400).send({ message: "Department Id already exists" });
+      return res.status(400).send({ message: "Department already exists" });
     }
+    return res.status(400).send({ message: err });
+  }
+};
+const getDepartments = async (req, res) => {
+  const query = `SELECT * from department`;
+  try {
+    const { rows } = await db.query(query);
+    return res.status(200).send(rows);
+  } catch (err) {
     return res.status(400).send({ message: err });
   }
 };
@@ -292,9 +301,10 @@ const addGrade = async (req, res) => {
     grade_bonus,
     grade_ta,
     grade_da)
-    VALUES($1,$2,$3,$4,$5,$6,$7)`;
+    VALUES($1,$2,$3,$4,$5,$6,$7)
+    returning *`;
   const values = [
-    req.body.grade_id,
+    uuid.v4(),
     req.body.grade_name,
     req.body.grade_pay,
     req.body.grade_pf,
@@ -309,8 +319,17 @@ const addGrade = async (req, res) => {
       .send({ message: "Grade added for employee", data: rows });
   } catch (err) {
     if (err.routine === "_bt_check_unique") {
-      return res.status(400).send({ message: "Grade Id already exists" });
+      return res.status(400).send({ message: "Grade already exists" });
     }
+    return res.status(400).send({ message: err });
+  }
+};
+const getGrades = async (req, res) => {
+  const query = `Select * from gradepay`;
+  try {
+    const { rows } = await db.query(query);
+    return res.status(200).send(rows);
+  } catch (err) {
     return res.status(400).send({ message: err });
   }
 };
@@ -360,6 +379,30 @@ const updateAdminPassword = async (req, res) => {
     return res.status(400).send({ message: err });
   }
 };
+const addOrganisation = async (req, res) => {
+  const query = `INSERT into organisation(
+    org_name,
+    email,
+    location,
+    contact_number,
+    paid_leave_limit,
+    encashed_leave_limit
+    ) values($1,$2,$3,$4,$5,$6) returning *`;
+  const values = [
+    req.body.org_name,
+    req.body.email,
+    req.body.location,
+    req.body.contact_number,
+    req.body.paid_leave_limit,
+    req.body.encashed_leave_limit,
+  ];
+  try {
+    const { rows } = await db.query(query, values);
+    return res.status(200).send({ message: "Organisation.Added", data: rows });
+  } catch (err) {
+    return res.status(400).send({ message: err });
+  }
+};
 module.exports = {
   createAdmin,
   adminLogin,
@@ -374,4 +417,7 @@ module.exports = {
   addGrade,
   updateEmployeePassword,
   updateAdminPassword,
+  getDepartments,
+  getGrades,
+  addOrganisation,
 };
