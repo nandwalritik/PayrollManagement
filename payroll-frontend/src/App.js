@@ -12,6 +12,8 @@ import AddDep from './Screens/AddDep';
 import EmployeeDrawer from "./Screens/EmployeeDrawer";
 import Reports from "./Screens/Reports";
 import Attendance from "./Screens/Attendance";
+import Profile from "./Screens/EmployeeProfile";
+import ChangePassword from "./Screens/ChangePassword";
 const App = () => {
   return (
     <Router>
@@ -28,6 +30,8 @@ const App = () => {
         <Route path='/employeeDashboard' component={EmployeeDrawer}/>
         <Route path='/reports' component={Reports}/>
         <Route path='/attendance' component={Attendance}/>
+        <Route path='/profile' component={Profile}/>
+        <Route path='/changepassword' component={ChangePassword}/>
       </div>
     </Router>
   );
