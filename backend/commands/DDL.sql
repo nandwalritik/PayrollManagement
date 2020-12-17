@@ -1,20 +1,20 @@
 create table admin(
 	admin_id varchar(255),
 	username varchar(255),
-	email varchar(255) ,
+	email varchar(255),
 	password varchar(255),
 	primary key(email)
 );
 create table organisation(
 	org_name varchar(255),
-	admin_mail varchar(255),
+	email varchar(255),
 	location varchar(255),
 	contact_number varchar(255),
 	paid_leave_limit int,
 	encashed_leave_limit int,
 	primary key (org_name),
-	foreign key (admin_mail) references admin
-		on delete set null
+	foreign key (email) references admin on delete
+	set null
 );
 create table department(
 	dept_id varchar(255),
@@ -40,9 +40,9 @@ create table employee(
 	encashed_leave_this_month int,
 	encashed_leave_till_date int,
 	e_id varchar(255),
-	doj varchar(255),
+	doj date,
 	name varchar(255),
-	dob varchar(255),
+	dob date,
 	address varchar(255),
 	city varchar(255),
 	state varchar(255),
@@ -53,20 +53,20 @@ create table employee(
 	dept_id varchar(255),
 	grade_id varchar(255),
 	primary key(email),
-	foreign key (org_name) references organisation
-		on delete set null,
-	foreign key (dept_id) references department
-		on delete set null,
-	foreign key (grade_id) references gradepay
-		on delete set null
+	foreign key (org_name) references organisation on delete
+	set null,
+		foreign key (dept_id) references department on delete
+	set null,
+		foreign key (grade_id) references gradepay on delete
+	set null
 );
 create table extras(
 	ex_type varchar(255),
 	amount int,
 	emp_mail varchar(255),
 	primary key (ex_type),
-	foreign key (emp_mail) references employee
-		on delete set null
+	foreign key (emp_mail) references employee on delete
+	set null
 );
 create table payroll(
 	transaction_id varchar(255),
@@ -77,30 +77,21 @@ create table payroll(
 	emp_mail varchar(255),
 	admin_mail varchar(255),
 	primary key (transaction_id),
-	foreign key (emp_mail) references employee
-		on delete set null,
-	foreign key (admin_mail) references admin
-		on delete set null
+	foreign key (emp_mail) references employee on delete
+	set null,
+		foreign key (admin_mail) references admin on delete
+	set null
 );
-
-create function record_attendance() returns trigger as $record_attendance$
-	BEGIN
-		if date_part('day',current_date) = 1 then
-			new.encashed_leave_till_date := old.enchashed_leave_till_date + old.encashed_leave_this_month;
-		else
-			if new.present = 1 then
-				new.present := old.present+1;
-			end if;
-			if new.encashed_leave_this_month = 1 then
-					new.encashed_leave_this_month := old.encashed_leave_this_month + 1;
-			end if;
-			if new.paid_leave_taken = 1 then
-					new.paid_leave_taken := old.paid_leave_taken + 1;
-			end if;	
-		end if;
-		return new;
-	end;
+create function record_attendance() returns trigger as $record_attendance$ BEGIN if date_part('day', current_date) = 1 then new.encashed_leave_till_date := old.enchashed_leave_till_date + old.encashed_leave_this_month;
+else if new.present = 1 then new.present := old.present + 1;
+end if;
+if new.encashed_leave_this_month = 1 then new.encashed_leave_this_month := old.encashed_leave_this_month + 1;
+end if;
+if new.paid_leave_taken = 1 then new.paid_leave_taken := old.paid_leave_taken + 1;
+end if;
+end if;
+return new;
+end;
 $record_attendance$ language plpgsql;
-
-create trigger record_attendance before update on employee
-	for each row execute procedure record_attendance();
+create trigger record_attendance before
+update on employee for each row execute procedure record_attendance();
