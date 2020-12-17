@@ -360,6 +360,29 @@ const updateAdminPassword = async (req, res) => {
     return res.status(400).send({ message: err });
   }
 };
+const markAttendance = async (req,res) => {
+  const updateQuery = `UPDATE employee set
+  present=$1,
+  paid_leave_taken=$2,
+  encashed_leave_this_month=$3
+  where email=$4
+  returning *`;
+  const values = [
+    req.body.present === 1 ? 1 : 0,
+    req.body.paid_leave_taken === 1 ? 1 : 0,
+    req.body.encashed_leave_this_month === 1 ? 1 : 0,
+    req.body.email,
+  ];
+  try {
+    const { rows } = await db.query(updateQuery, values);
+    console.log(rows);
+    return res
+      .status(200)
+      .send({ message: "Attendance recorded successfully", data: rows });
+  } catch (err) {
+    return res.status(400).send({ message: err });
+  }
+};
 module.exports = {
   createAdmin,
   adminLogin,
@@ -374,4 +397,5 @@ module.exports = {
   addGrade,
   updateEmployeePassword,
   updateAdminPassword,
+  markAttendance,
 };
