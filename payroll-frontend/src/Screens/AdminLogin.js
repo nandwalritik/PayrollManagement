@@ -61,8 +61,8 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
-  const [msg,setMessage] = useState('')
-  
+  const [msg, setMessage] = useState("");
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -77,29 +77,27 @@ const AdminLogin = () => {
   const history = useHistory();
 
   const handleSubmit = async (e) => {
-    
     e.preventDefault();
-    history.push("/adminDashboard");
-    // fetch("http://localhost:3003/api/adminLogin", {
-    //   method: "POST",
-    //   body: body,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     console.log(res);
-    //     if (res.message === "Auth.verified") {
-    //       history.push("/adminDashboard");
-    //     }else{
-    //       handleClickOpen();
-    //       setMessage(res.message)
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    fetch("http://localhost:3003/api/adminLogin", {
+      method: "POST",
+      body: body,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.message === "Auth.verified") {
+          history.push("/adminDashboard");
+        } else {
+          handleClickOpen();
+          setMessage(res.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -193,23 +191,23 @@ const AdminLogin = () => {
             >
               Sign In
             </Button>
-            {/* <Grid container>
+            <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link
+                  variant="body2"
+                  onClick={() => {
+                    history.push("/resetPassword",{
+                      text:"admin"
+                    });
+                  }}
+                >
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid> */}
+            </Grid>
           </form>
         </div>
-        <Box mt={8}>
-          {/* <Copyright /> */}
-        </Box>
+        <Box mt={8}>{/* <Copyright /> */}</Box>
       </Container>
     </div>
   );

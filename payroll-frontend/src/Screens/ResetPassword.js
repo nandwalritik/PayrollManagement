@@ -22,6 +22,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+
+import LockIcon from '@material-ui/icons/Lock';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -55,7 +57,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EmployeeLogin = () => {
+const ResetPassword = (props) => {
+  // console.log("Thsi is props ",props.location.state)
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -69,6 +72,7 @@ const EmployeeLogin = () => {
 
   const handleClose = () => {
     setOpen(false);
+    history.goBack();
   };
   const body = JSON.stringify({
     email: email,
@@ -76,22 +80,23 @@ const EmployeeLogin = () => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:3003/api/employeeLogin", {
-      method: "POST",
-      body: body,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      props.location.state.text === "admin"
+        ? "http://localhost:3003/api/updateAdminPassword"
+        : "http://localhost:3003/api/updateEmployeePassword",
+      {
+        method: "POST",
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
-        if (res.message === "Auth.verified") {
-          history.push("/employeeDashboard");
-        } else {
-          handleClickOpen();
-          setMessage(res.message);
-        }
+        handleClickOpen();
+        setMessage(res.message);
       })
       .catch((err) => {
         console.log(err);
@@ -101,6 +106,9 @@ const EmployeeLogin = () => {
   return (
     <div className="App">
       <div>
+        {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          Open alert dialog
+        </Button> */}
         <Dialog
           open={open}
           onClose={handleClose}
@@ -108,7 +116,7 @@ const EmployeeLogin = () => {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {"Authentification Error"}
+            {"Message"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
@@ -116,6 +124,9 @@ const EmployeeLogin = () => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
+            {/* <Button onClick={handleClose} color="primary">
+              Disagree
+            </Button> */}
             <Button onClick={handleClose} color="primary" autoFocus>
               OK
             </Button>
@@ -131,10 +142,10 @@ const EmployeeLogin = () => {
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <AccountCircleIcon />
+            <LockIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Employee Login
+            Reset Password {props.location.state.text.toUpperCase()}
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -158,7 +169,7 @@ const EmployeeLogin = () => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="New Password"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -178,27 +189,14 @@ const EmployeeLogin = () => {
                 handleSubmit(e);
               }}
             >
-              Log In
+              Reset Password
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link
-                  variant="body2"
-                  onClick={() => {
-                    history.push("/resetPassword",{
-                      text:"employee"
-                    });
-                  }}
-                >
-                  Forgot password?
-                </Link>
-              </Grid>
-            </Grid>
           </form>
         </div>
+        <Box mt={8}>{/* <Copyright /> */}</Box>
       </Container>
     </div>
   );
 };
 
-export default EmployeeLogin;
+export default ResetPassword;

@@ -315,7 +315,40 @@ const addGrade = async (req, res) => {
   }
 };
 const updateEmployeePassword = async (req, res) => {
+  if (!req.body.email || !req.body.password) {
+    return res
+      .status(400)
+      .send({ message: "Please enter a valid email address and password" });
+  }
+  if (!Helper.isValidEmail(req.body.email)) {
+    return res
+      .status(400)
+      .send({ message: "Please enter a valid email address" });
+  }
   const query = `UPDATE employee set password = $1 where email=$2 returning email,password`;
+  const newPassword = Helper.hashPassword(req.body.password);
+  const values = [newPassword, req.body.email];
+  try {
+    const { rows } = await db.query(query, values);
+    return res
+      .status(200)
+      .send({ message: "Password updated successfully", data: rows });
+  } catch (err) {
+    return res.status(400).send({ message: err });
+  }
+};
+const updateAdminPassword = async (req, res) => {
+  if (!req.body.email || !req.body.password) {
+    return res
+      .status(400)
+      .send({ message: "Please enter a valid email address and password" });
+  }
+  if (!Helper.isValidEmail(req.body.email)) {
+    return res
+      .status(400)
+      .send({ message: "Please enter a valid email address" });
+  }
+  const query = `UPDATE admin set password = $1 where email=$2 returning email,password`;
   const newPassword = Helper.hashPassword(req.body.password);
   const values = [newPassword, req.body.email];
   try {
@@ -340,4 +373,5 @@ module.exports = {
   addDepartment,
   addGrade,
   updateEmployeePassword,
+  updateAdminPassword,
 };
