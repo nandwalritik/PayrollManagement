@@ -3,45 +3,30 @@ import logo from "../Assets/Logo.png";
 import "../StyleSheets/Welcome.css";
 import "../StyleSheets/AdminOptions.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch,faTrash,faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import {testData} from "../testData.js"
 import AddEmployee from "./AddEmployee.js"
 //testData used for testing.It is to be replaced by employee's db
 
 const AdminUpdateInfo=()=>{
     const [search,setSearch]=useState(0);
-    const [emp,setEmp]=useState([]);
-    const [callUpdate,setCallUpadte]=useState(false);
-
-    const handleChange=(e)=>{
-        setSearch(e.target.value);
-        //to handle dynamic change
-    }
-
-    const handleSubmit =() => {
-        //functionality to filter out the employee with given employee-ID
-
-        const newEmp=testData.filter((e)=>{
-            console.log(e.id,search)
-            return e.id==search
-        })
-        // console.log(newEmp)
-        if(newEmp.length===0)
-        console.log("Oops,No Match Found")
-        setEmp(newEmp)
-
-        //output the employee to update it
-        
-    };
+    const [emp,setEmp]=useState(testData);
+    const [callUpdate,setCallUpdate]=useState(false);
 
     const upDate=()=>{
-        setCallUpadte(true);
+        setCallUpdate(true);
+        document.getElementById('id01').style.display='block';
     }
 
-    const delEmp=()=>{
+    const closeModal=()=>{
+      document.getElementById('id01').style.display='none';
+      setCallUpdate(false);
+    }
+
+    const delEmp=(name)=>{
         
         //sql to delete the concerned entry from the table
-        setEmp([]);
+        setEmp(emp.filter(e=>e.Name!=name));
         //console.log(testData);
     };
 
@@ -51,37 +36,31 @@ const AdminUpdateInfo=()=>{
         <hr className="Underline" />
         <img src={logo} alt="logo"></img>
       </header>
-      <div className='search'>
-        <h4>Enter employee ID which needs to be updated..</h4>
-        <label htmlFor='search' ></label>
-        <div className='search-container'>
-            <input
-            type='number'
-            id='search'
-            name='search'
-            value={search}
-            onChange={handleChange}
-            required
-            />
-            <button type="submit" onClick={()=>handleSubmit()}><FontAwesomeIcon icon={faSearch} /></button>     
-        </div>   
-        </div>
-      <div className='item'>
-            {/* displaying employee with the concerned ID */}
-            {emp.length===0?
-            <h4>No matching results found!!</h4>:
-            <div>
-                <FontAwesomeIcon icon={faEdit} className='btn' onClick={()=>upDate()}/>
-                <FontAwesomeIcon icon={faTrash} className='btn' onClick={()=>delEmp()}/>
-                <h2>{emp[0].id}</h2>
-                <h3>{emp[0].Name}</h3>     
+      <div class="w3-container">
+      <table class="w3-table w3-bordered">
+        {
+          emp.map((Emp)=>(
+            <tr key={Emp.id}>
+              <td>{Emp.Name}</td>
+              <td><button onClick={()=>upDate()}>Edit</button></td>
+              <td><button style={{backgroundColor: '#f43d3d'}} onClick={()=>delEmp(Emp.Name)}>Delete</button></td>
+            </tr>
+          ))
+        }
+      </table>
+        <div id="id01" class="w3-modal">
+          <div class="w3-modal-content">
+            <div class="w3-container">
+              <span className="w3-button w3-display-topright">
+                <FontAwesomeIcon icon={faTimes} onClick={()=>closeModal()}></FontAwesomeIcon>
+              </span>
+              <AddEmployee></AddEmployee>
             </div>
-            }
+          </div>
       </div>
-      {/* calling update part(AddEmployee page) with the details of the selected employee */}
-      {
-        callUpdate && <AddEmployee employee={emp[0]}></AddEmployee>
-      }
+      
+    </div>
+
     </div>
 }
 

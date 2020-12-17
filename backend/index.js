@@ -36,6 +36,7 @@ app.post("/api/updateAdminPassword", User.updateAdminPassword);
 app.get("/api/getDepartments", User.getDepartments);
 app.get("/api/getGrades", User.getGrades);
 app.post("/api/addOrganisation", User.addOrganisation);
+app.post("/api/markAttendance", User.markAttendance);
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });

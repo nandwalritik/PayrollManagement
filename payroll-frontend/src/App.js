@@ -9,6 +9,7 @@ import AdminUpdateInfo from "./Screens/AdminUpdateInfo";
 import AddEmployee from "./Screens/AddEmployee";
 import AddGrade from "./Screens/AddGrade";
 import AddDep from "./Screens/AddDep";
+import AddExtras from "./Screens/AddExtras";
 import EmployeeDrawer from "./Screens/EmployeeDrawer";
 import Reports from "./Screens/Reports";
 import Attendance from "./Screens/Attendance";
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/addEmployee" component={AddEmployee} />
         <Route path="/addGrade" component={AddGrade} />
         <Route path="/addDep" component={AddDep} />
+        <Route path="/addExtras" component={AddExtras} />
         <Route path="/employeeDashboard" component={EmployeeDrawer} />
         <Route path="/reports" component={Reports} />
         <Route path="/attendance" component={Attendance} />
