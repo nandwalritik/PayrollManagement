@@ -9,11 +9,11 @@ import AdminUpdateInfo from "./Screens/AdminUpdateInfo";
 import AddEmployee from "./Screens/AddEmployee";
 import AddGrade from "./Screens/AddGrade";
 import AddDep from "./Screens/AddDep";
-import EmployeeDrawer from "./Screens/EmployeeDashboard";
-import EmployeeProfile from "./Screens/EmployeeProfile";
-import GenerateReports from "./Screens/GenerateReports";
-import { MarkAttendace } from "./Screens/MarkAttendace";
-
+import EmployeeDrawer from "./Screens/EmployeeDrawer";
+import Reports from "./Screens/Reports";
+import Attendance from "./Screens/Attendance";
+import ResetPassword from "./Screens/ResetPassword";
+import Profile from "./Screens/EmployeeProfile";
 const App = () => {
   return (
     <Router>
@@ -28,9 +28,10 @@ const App = () => {
         <Route path="/addGrade" component={AddGrade} />
         <Route path="/addDep" component={AddDep} />
         <Route path="/employeeDashboard" component={EmployeeDrawer} />
-        <Route path="/employeeProfile" component={EmployeeProfile} />
-        <Route path="/generateReports" component={GenerateReports} />
-        <Route path="/markAttendance" component={MarkAttendace} />
+        <Route path="/reports" component={Reports} />
+        <Route path="/attendance" component={Attendance} />
+        <Route path="/resetPassword" component={ResetPassword} />
+        <Route path="/profile" component={Profile} />
       </div>
     </Router>
   );

@@ -7,7 +7,7 @@ const Auth = require("./src/middleware/Auth");
 const User = require("./src/queries");
 const dotenv = require("dotenv");
 const cors = require("cors");
-// app.use(cors())
+app.use(cors())
 dotenv.config();
 app.use(bodyParser.json());
 
@@ -31,6 +31,9 @@ app.get("/api/getReports", User.generateReports);
 app.post("/api/updateEmployeeData", User.updateEmployeedata);
 app.post("/api/addDepartment", User.addDepartment);
 app.post("/api/addGrade", User.addGrade);
+app.post("/api/updateEmployeePassword", User.updateEmployeePassword);
+app.post("/api/updateAdminPassword", User.updateAdminPassword);
+app.post("/api/markAttendance", User.markAttendance);
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
