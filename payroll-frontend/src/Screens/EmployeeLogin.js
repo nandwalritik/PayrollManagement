@@ -17,6 +17,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -55,14 +60,68 @@ const EmployeeLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const [open, setOpen] = useState(false);
+  const [msg, setMessage] = useState("");
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const body = JSON.stringify({
+    email: email,
+    password: password,
+  });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    history.push("/employeeDashboard");
+    fetch("http://localhost:3003/api/employeeLogin", {
+      method: "POST",
+      body: body,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.message === "Auth.verified") {
+          history.push("/employeeDashboard");
+        } else {
+          handleClickOpen();
+          setMessage(res.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
     <div className="App">
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Authentification Error"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {msg}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary" autoFocus>
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
       <header>
         <h1>Payroll Management System</h1>
         <hr className="Underline" />
@@ -121,9 +180,22 @@ const EmployeeLogin = () => {
             >
               Log In
             </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link
+                  variant="body2"
+                  onClick={() => {
+                    history.push("/resetPassword",{
+                      text:"employee"
+                    });
+                  }}
+                >
+                  Forgot password?
+                </Link>
+              </Grid>
+            </Grid>
           </form>
         </div>
-        <Box mt={8}>{/* <Copyright /> */}</Box>
       </Container>
     </div>
   );
