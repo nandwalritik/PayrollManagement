@@ -23,7 +23,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import LockIcon from '@material-ui/icons/Lock';
+import LockIcon from "@material-ui/icons/Lock";
+import { base_url } from "../baseUrl";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -82,8 +83,8 @@ const ResetPassword = (props) => {
     e.preventDefault();
     fetch(
       props.location.state.text === "admin"
-        ? "http://localhost:3003/api/updateAdminPassword"
-        : "http://localhost:3003/api/updateEmployeePassword",
+        ? `${base_url}updateAdminPassword`
+        : `${base_url}updateEmployeePassword`,
       {
         method: "POST",
         body: body,
@@ -106,18 +107,13 @@ const ResetPassword = (props) => {
   return (
     <div className="App">
       <div>
-        {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-          Open alert dialog
-        </Button> */}
         <Dialog
           open={open}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">
-            {"Message"}
-          </DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Message"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               {msg}

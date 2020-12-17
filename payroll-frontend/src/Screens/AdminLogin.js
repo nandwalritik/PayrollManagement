@@ -21,19 +21,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://github.com/nandwalritik">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { base_url } from "../baseUrl";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -78,7 +66,7 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:3003/api/adminLogin", {
+    fetch(`${base_url}adminLogin`, {
       method: "POST",
       body: body,
       headers: {

@@ -22,6 +22,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { base_url } from "../baseUrl";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -76,7 +77,7 @@ const EmployeeLogin = () => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:3003/api/employeeLogin", {
+    fetch(`${base_url}employeeLogin`, {
       method: "POST",
       body: body,
       headers: {
