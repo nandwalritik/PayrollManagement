@@ -13,6 +13,7 @@ import EmployeeDrawer from "./Screens/EmployeeDrawer";
 import Reports from "./Screens/Reports";
 import Attendance from "./Screens/Attendance";
 import ResetPassword from "./Screens/ResetPassword";
+import Profile from "./Screens/EmployeeProfile";
 const App = () => {
   return (
     <Router>
@@ -30,7 +31,7 @@ const App = () => {
         <Route path="/reports" component={Reports} />
         <Route path="/attendance" component={Attendance} />
         <Route path="/resetPassword" component={ResetPassword} />
-        {/* <Route path='/attendancelog' component={AttendanceLog}/> */}
+        <Route path="/profile" component={Profile} />
       </div>
     </Router>
   );
