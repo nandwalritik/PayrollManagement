@@ -66,7 +66,7 @@ create table is_given(
 	emp_mail varchar(255),
 	primary key (ex_type,emp_mail),
 	foreign key (emp_mail) references employee
-		on delete set null 
+		on delete set null,
 	foreign key (ex_type) references extras
 		on delete set null
 );
