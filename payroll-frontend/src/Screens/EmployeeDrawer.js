@@ -9,16 +9,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faPen, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 
-const EmployeeDrawer = () => {
+const EmployeeDrawer = (props) => {
   const [showId, setShowid] = useState(0);
   const [adminModal, setAdminmodal] = useState(false);
   const [userModal, setUsermodal] = useState(false);
   // console.log("Value set to ", showId);
   let history = useHistory();
 
-  const handleSubmit=(e)=>{
+  const handleSubmit = (e) => {
     // Handle submit attendance.
-}
+  };
 
   return (
     <div className="App">
@@ -35,18 +35,18 @@ const EmployeeDrawer = () => {
           alignContent: "center",
           alignSelf: "center",
           display: "flex",
-          flexDirection: "row"}}
+          flexDirection: "row",
+        }}
       >
-        <div
-          className="Login-button"
-          onClick={() => history.push("/reports")}
-        >
+        <div className="Login-button" onClick={() => history.push("/reports")}>
           <FontAwesomeIcon icon={faFile} />
           <h4>Generate Report</h4>
         </div>
         <div
           className="Login-button"
-          onClick={() => history.push("/profile")}
+          onClick={() =>
+            history.push("/profile", { email: props.location.state.email })
+          }
         >
           <FontAwesomeIcon icon={faUser} />
           <h4>My Profile</h4>
@@ -56,7 +56,7 @@ const EmployeeDrawer = () => {
           <h4>Mark Attendance</h4>
         </div>
       </div>
-      </div>
+    </div>
   );
 };
 const styles = {
