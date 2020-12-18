@@ -30,8 +30,8 @@ create table gradepay(
 	basic_pay int,
 	grade_pf varchar(255),
 	grade_bonus int,
-	grade_ta varchar(255),
-	grade_da varchar(255),
+	grade_ta int,
+	grade_da int,
 	primary key (grade_id)
 );
 create table employee(
@@ -60,20 +60,20 @@ create table employee(
 	foreign key (grade_id) references gradepay
 		on delete set null
 );
+create table extras(
+	ex_type varchar(255),
+	ex_id varchar(255),
+	primary key (ex_type)
+);
 create table is_given(
 	ex_type varchar(255),
 	amount int,
 	emp_mail varchar(255),
 	primary key (ex_type,emp_mail),
 	foreign key (emp_mail) references employee
-		on delete set null 
+		on delete set null, 
 	foreign key (ex_type) references extras
 		on delete set null
-);
-create table extras(
-	ex_type varchar(255),
-	ex_id varchar(255),
-	primary key (ex_type)
 );
 create table payroll(
 	transaction_id varchar(255),
@@ -93,33 +93,39 @@ create table payroll(
 create function record_attendance() returns trigger as $record_attendance$
 	BEGIN
 		if date_part('day',current_date) = 1 then
-			new.encashed_leave_till_date := old.enchashed_leave_till_date + old.encashed_leave_this_month;
 			with result as (
-				select
+				
+	select
 				case 
 					when sum(amount) is null then gross
 					else gross+sum(amount)
 				end as 
-				gross_pay,income_tax,emp_mail,admin_mail from (
-					select basic_pay+grade_ta+grade_da+grade_bonus-((paid_leave_taken-organisation.paid_leave_limit)*10) as gross, 0.12*basic_pay as income_tax, emp_mail, admin_mail from (
-						(select emp_mail,admin_mail,grade_id,paid_leave_taken from employee natural join organisation where emp_mail='abc@gmail.com') as result_1
-						natural join gradepay
-					) as result_2
-					left outer join is_given on result_2.emp_mail=is_given.emp_mail
-				)
-			)
+				gross_pay,income_tax,email,admin_mail from (
+					select basic_pay+grade_ta+grade_da+grade_bonus-((paid_leave_taken -paid_leave_limit)*10) as gross, 0.12*basic_pay as income_tax, email, admin_mail,is_given.amount as amount from (
+      						(select email,admin_mail,grade_id,paid_leave_taken,paid_leave_limit from employee natural join organisation where email=new.email) as result_1 natural join gradepay
+     					) as result_2
+					left outer join is_given on result_2.email=is_given.emp_mail
+				) as result_3 group by gross,income_tax,email,admin_mail
+		)
 			insert into payroll values (
-				uuid.v4(),date_part('month',current_date),date_part('year',current_date),result.gross_pay,result.income_tax,result.emp_mail,result.admin_mail
+				'278',date_part('month',current_date),date_part('year',current_date),(select gross_pay from result),(select income_tax from result),(select email from result),(select admin_mail from result)
+
 			);
 		else
 			if new.present = 1 then
 				new.present := old.present+1;
+				new.encashed_leave_this_month := old.encashed_leave_this_month;
+				new.paid_leave_taken := old.paid_leave_taken;
 			end if;
 			if new.encashed_leave_this_month = 1 then
-					new.encashed_leave_this_month := old.encashed_leave_this_month + 1;
+				new.encashed_leave_this_month := old.encashed_leave_this_month + 1;
+				new.present := old.present;
+				new.paid_leave_taken := old.paid_leave_taken;
 			end if;
 			if new.paid_leave_taken = 1 then
-					new.paid_leave_taken := old.paid_leave_taken + 1;
+				new.paid_leave_taken := old.paid_leave_taken + 1;
+				new.encashed_leave_this_month := old.encashed_leave_this_month;
+				new.present := old.present;
 			end if;	
 		end if;
 		return new;
