@@ -66,9 +66,9 @@ create table is_given(
 	email varchar(255),
 	primary key (ex_id, email),
 	foreign key (email) references employee on delete
-	set null,
+	cascade,
 		foreign key (ex_id) references extras on delete
-	set null
+	cascade
 );
 create table extras(
 	ex_type varchar(255),
