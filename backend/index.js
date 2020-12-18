@@ -37,6 +37,10 @@ app.get("/api/getDepartments", User.getDepartments);
 app.get("/api/getGrades", User.getGrades);
 app.post("/api/addOrganisation", User.addOrganisation);
 app.post("/api/markAttendance", User.markAttendance);
+app.post("/api/addExtras", User.addExtras);
+app.get("/api/getExtras", User.getExtras);
+app.post("/api/addIsgiven", User.addIsgiven);
+app.get("/api/getExtraForemp/:email", User.getExtraForemp);
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
