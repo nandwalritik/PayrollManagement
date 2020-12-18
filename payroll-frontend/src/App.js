@@ -15,6 +15,7 @@ import Reports from "./Screens/Reports";
 import Attendance from "./Screens/Attendance";
 import ResetPassword from "./Screens/ResetPassword";
 import Profile from "./Screens/EmployeeProfile";
+import UpdateDetails from "./Screens/UpdateDetails";
 const App = () => {
   return (
     <Router>
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/attendance" component={Attendance} />
         <Route path="/resetPassword" component={ResetPassword} />
         <Route path="/profile" component={Profile} />
+        <Route path="/updateProfile" component={UpdateDetails} />
       </div>
     </Router>
   );
