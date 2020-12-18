@@ -28,7 +28,7 @@ create table gradepay(
 	grade_id varchar(255),
 	grade_name varchar(255),
 	basic_pay int,
-	grade_pf varchar(255),
+	grade_pf int,
 	grade_bonus int,
 	grade_ta int,
 	grade_da int,
@@ -76,11 +76,11 @@ create table is_given(
 		on delete set null
 );
 create table payroll(
-	transaction_id varchar(255),
-	month varchar(255),
-	year varchar(255),
-	gross_pay varchar(255),
-	income_tax varchar(255),
+	transaction_id SERIAL,
+	month int,
+	year int,
+	gross_pay int,
+	income_tax int,
 	emp_mail varchar(255),
 	admin_mail varchar(255),
 	primary key (transaction_id),
@@ -107,8 +107,8 @@ create function record_attendance() returns trigger as $record_attendance$
 					left outer join is_given on result_2.email=is_given.emp_mail
 				) as result_3 group by gross,income_tax,email,admin_mail
 		)
-			insert into payroll values (
-				'278',date_part('month',current_date),date_part('year',current_date),(select gross_pay from result),(select income_tax from result),(select email from result),(select admin_mail from result)
+			insert into payroll(month,year,gross_pay,income_tax,emp_mail,admin_mail) values (
+				date_part('month',current_date),date_part('year',current_date),(select gross_pay from result),(select income_tax from result),(select email from result),(select admin_mail from result)
 
 			);
 		else
