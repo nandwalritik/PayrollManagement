@@ -14,10 +14,12 @@ import moment from "moment";
 const UpdateDetails = (props) => {
   const [departmentsList, setDeplist] = useState([]);
   const [gradesList, setGradeslist] = useState([]);
+  const [extrasList, setExtraslist] = useState([]);
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [msg, setMessage] = useState("");
-
+  const [amount, setAmount] = useState(0);
+  const [ex_type, setExtype] = useState("");
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -39,8 +41,28 @@ const UpdateDetails = (props) => {
     doj: "",
     email: props.location.state.email,
   };
-
+  const submitExtras = async () => {
+    fetch(`${base_url}addIsgiven`, {
+      method: "POST",
+      body: JSON.stringify({
+        ex_id: ex_type,
+        amount: amount,
+        email:props.location.state.email
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   const onSubmit = async (values) => {
+    submitExtras()
     console.log(values);
     const body = JSON.stringify(values);
     fetch(`${base_url}updateEmployeeData`, {
@@ -69,6 +91,8 @@ const UpdateDetails = (props) => {
     getDepartments();
     getGrades();
     getDetails();
+    getExtras();
+    getExtraDetails();
   }, []);
   const getDepartments = async () => {
     fetch(`${base_url}getDepartments`, {
@@ -95,6 +119,21 @@ const UpdateDetails = (props) => {
       .then((res) => res.json())
       .then((res) => {
         setGradeslist(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const getExtras = async () => {
+    fetch(`${base_url}getExtras`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setExtraslist(res);
       })
       .catch((err) => {
         console.log(err);
@@ -140,11 +179,30 @@ const UpdateDetails = (props) => {
         console.error(err);
       });
   };
+  const getExtraDetails = async()=>{
+    fetch(`${base_url}getExtraForemp/${props.location.state.email}`,{
+      method:"GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then(res=>res.json())
+    .then(res=>{
+      setExtype(res[0].ex_id)
+      setAmount(res[0].amount)
+    })
+    .catch(err=>{
+      console.error(err);
+    })
+  }
   const departments = departmentsList.map((dept) => {
     return <option value={dept.dept_id}>{dept.dept_name}</option>;
   });
   const grades = gradesList.map((grade) => {
     return <option value={grade.grade_id}>{grade.grade_name}</option>;
+  });
+  const extras = extrasList.map((extra) => {
+    return <option value={extra.ex_id}>{extra.ex_type}</option>;
   });
   return (
     <>
@@ -302,6 +360,31 @@ const UpdateDetails = (props) => {
                 name="doj"
                 value={formik.values.doj}
                 onChange={formik.handleChange("doj")}
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label htmlFor="Dept">Extras Type: </label>
+              <select
+                style={styles.dropDown}
+                value={ex_type}
+                onChange={(e)=>{
+                  console.log(e.target.value)
+                  setExtype(e.target.value)
+                }}
+                required
+              >
+                {extras}
+              </select>
+            </div>
+            <div className="form-control">
+              <label htmlFor="extAmount">Extra amount: </label>
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                value={amount}
+                onChange={(e)=>setAmount(e.target.value)}
                 required
               />
             </div>

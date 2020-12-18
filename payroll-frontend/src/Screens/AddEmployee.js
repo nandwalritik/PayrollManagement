@@ -267,7 +267,7 @@ const AddEmployee = () => {
             </div>
           </div>
           <button type="submit" onClick={formik.handleSubmit}>
-            Add
+            add / Update
           </button>
         </form>
       </div>
