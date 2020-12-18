@@ -12,14 +12,14 @@ const createAdmin = async (req, res) => {
       .status(400)
       .send({ message: "Please enter a valid email address" });
   }
-  // console.log(req)
+  //console.log(req)
   const hashPassword = Helper.hashPassword(req.body.password);
   const createQuery = `INSERT INTO admin(admin_id,username,email,password) VALUES($1,$2,$3,$4) returning *`;
   const values = [uuid.v4(), req.body.username, req.body.email, hashPassword];
   try {
     const { rows } = await db.query(createQuery, values);
     const token = Helper.generateToken(rows[0].email);
-    // console.log("This is token ",token)
+    //console.log("This is token ",token)
     return res.status(201).send({ message: "Account.Create", token: token });
   } catch (err) {
     if (err.routine === "_bt_check_unique") {
@@ -31,7 +31,7 @@ const createAdmin = async (req, res) => {
   }
 };
 const adminLogin = async (req, res) => {
-  // console.log(req);
+  //console.log(req);
   if (!req.body.email || !req.body.password) {
     return res
       .status(400)
@@ -83,7 +83,7 @@ const createEmployee = async (req, res) => {
     VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) 
     returning *`;
   const hashPassword = Helper.hashPassword("abcd1234");
-  console.log(req.body);
+  //console.log(req.body);
   const values = [
     0,
     0,
@@ -106,11 +106,11 @@ const createEmployee = async (req, res) => {
   try {
     const { rows } = await db.query(query, values);
     // const token = Helper.generateToken(rows[0].e_id);
-    // console.log("This is token ",token)
-    console.log(rows);
+    //console.log("This is token ",token)
+    //console.log(rows);
     return res.status(201).send({ message: "User Added" });
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     if (err.routine === "_bt_check_unique") {
       return res
         .status(400)
@@ -120,9 +120,9 @@ const createEmployee = async (req, res) => {
   }
 };
 const deleteEmployee = async (req, res) => {
-  const query = `DELETE FROM Employee WHERE e_id = $1`;
+  const query = `DELETE FROM Employee WHERE email = $1`;
   try {
-    const { rows } = await db.query(query, [req.body.e_id]);
+    const { rows } = await db.query(query, [req.body.email]);
     return res.status(200).send({ message: "User.Deleted" });
   } catch (err) {
     return res.status(400).send({ error: err });
@@ -132,14 +132,14 @@ const getAllEmployees = async (req, res) => {
   const query = `SELECT * from employee`;
   try {
     const { rows } = await db.query(query);
-    // console.log(rows);
+    // //console.log(rows);
     return res.status(200).send({ message: "All Employees", data: rows });
   } catch (err) {
     return res.status(400).send({ error: err });
   }
 };
 const employeeLogin = async (req, res) => {
-  console.log(req);
+  //console.log(req);
   if (!req.body.email || !req.body.password) {
     return res
       .status(400)
@@ -153,7 +153,7 @@ const employeeLogin = async (req, res) => {
   const query = "SELECT * FROM employee where email = $1";
   try {
     const { rows } = await db.query(query, [req.body.email]);
-    console.log(rows);
+    //console.log(rows);
     if (!rows[0]) {
       return res
         .status(400)
@@ -171,22 +171,22 @@ const employeeLogin = async (req, res) => {
   }
 };
 const getEmployeeProfile = async (req, res) => {
-  console.log(req);
+  // console.log(req.params);
   const query = "SELECT * FROM employee where email = $1";
   try {
-    const { rows } = await db.query(query, [req.body.email]);
-    console.log(rows);
+    const { rows } = await db.query(query, [req.params.email]);
+    //console.log(rows);
     return res.status(200).send({ message: "Employee Data", data: rows });
   } catch (error) {
     return res.status(400).send({ message: error });
   }
 };
 const generateReports = async (req, res) => {
-  console.log(req);
+  //console.log(req);
   const query = "SELECT * FROM employee natural join payroll where email = $1";
   try {
     const { rows } = await db.query(query, [req.body.email]);
-    console.log(rows);
+    //console.log(rows);
     return res.status(200).send({ message: "Report Data", data: rows });
   } catch (error) {
     return res.status(400).send({ message: error });
@@ -195,66 +195,59 @@ const generateReports = async (req, res) => {
 const updateEmployeedata = async (req, res) => {
   const queryGet = "SELECT * FROM employee where email=$1";
   console.log(req.body.email);
-  var data = {};
-  try {
-    const employee = await db.query(queryGet, [req.body.email]);
-    data = employee.rows[0];
-  } catch (err) {
-    console.log(err);
-  }
-  console.log("Data that is to be updated ", data);
+  // var data = {};
+  // try {
+  //   const employee = await db.query(queryGet, [req.body.email]);
+  //   data = employee.rows[0];
+  // } catch (err) {
+  //   console.log(err);
+  // }
+  // //console.log("Data that is to be updated ", data);
 
   const updateQuery = `UPDATE employee set 
-  paid_leave_taken=$1,
-  encashed_leave_this_month=$2,
-  encashed_leave_till_date=$3,
-  e_id=$4,
-  doj=$5,
-  name=$6,
-  dob=$7,
-  age=$8,
-  years_of_service=$9,
-  address=$10,
-  city=$11,
-  state=$12,
-  pincode=$13,
-  org_name=$14,
-  dept_id=$15,
-  grade_id=$16
-  where email=$17
+  doj=$1,
+  name=$2,
+  dob=$3,
+  address=$4,
+  city=$5,
+  state=$6,
+  pincode=$7,
+  org_name=$8,
+  dept_id=$9,
+  grade_id=$10
+  where email=$11
   returning *`;
-  console.log(req.body.dob, data.dob);
+  //console.log(req.body.dob, data.dob);
+  // const values = [
+  //   req.body.doj !== undefined ? req.body.doj : data.doj,
+  //   req.body.name !== undefined ? req.body.name : data.name,
+  //   req.body.dob !== undefined ? req.body.doj : data.doj,
+  //   req.body.address !== undefined ? req.body.address : data.address,
+  //   req.body.city !== undefined ? req.body.city : data.city,
+  //   req.body.state !== undefined ? req.body.state : data.state,
+  //   req.body.pincode !== undefined ? req.body.pincode : data.pincode,
+  //   req.body.org_name !== undefined ? req.body.org_name : data.org_name,
+  //   req.body.dept_id !== undefined ? req.body.dept_id : data.dept_id,
+  //   req.body.grade_id !== undefined ? req.body.grade_id : data.grade_id,
+  //   req.body.email
+  // ];
   const values = [
-    req.body.paid_leave_taken !== undefined
-      ? req.body.paid_leave_taken
-      : data.paid_leave_taken,
-    req.body.encashed_leave_this_month !== undefined
-      ? req.body.encashed_leave_this_month
-      : data.encashed_leave_this_month,
-    req.body.encashed_leave_till_date !== undefined
-      ? req.body.encashed_leave_till_date
-      : data.encashed_leave_till_date,
-    req.body.e_id !== undefined ? req.body.e_id : data.e_id,
-    req.body.doj !== undefined ? req.body.doj : data.doj,
-    req.body.name !== undefined ? req.body.name : data.name,
-    req.body.dob !== undefined ? req.body.doj : data.doj,
-    req.body.age !== undefined ? req.body.age : data.age,
-    req.body.years_of_service !== undefined
-      ? req.body.years_of_service
-      : data.years_of_service,
-    req.body.address !== undefined ? req.body.address : data.address,
-    req.body.city !== undefined ? req.body.city : data.city,
-    req.body.state !== undefined ? req.body.state : data.state,
-    req.body.pincode !== undefined ? req.body.pincode : data.pincode,
-    req.body.org_name !== undefined ? req.body.org_name : data.org_name,
-    req.body.dept_id !== undefined ? req.body.dept_id : data.dept_id,
-    req.body.grade_id !== undefined ? req.body.grade_id : data.grade_id,
-    req.body.email,
-  ];
-  console.log(values);
+    req.body.doj,
+    req.body.name,
+    req.body.dob,
+    req.body.address,
+    req.body.city,
+    req.body.state,
+    req.body.pincode,
+    req.body.org_name,
+    req.body.dept_id,
+    req.body.grade_id,
+    req.body.email
+  ]
+  //console.log(values);
   try {
     const { rows } = await db.query(updateQuery, values);
-    console.log(rows);
+    ////console.log(rows);
     return res
       .status(200)
       .send({ message: "User data updated successfully", data: rows });
@@ -271,7 +264,7 @@ const addDepartment = async (req, res) => {
   const values = [uuid.v4(), req.body.dept_name, req.body.org_name];
   try {
     const { rows } = await db.query(query, values);
-    console.log(rows);
+    ////console.log(rows);
     return res.status(200).send({
       message: "Department Added Successfully",
       data: rows,
@@ -418,7 +411,7 @@ const markAttendance = async (req, res) => {
   ];
   try {
     const { rows } = await db.query(updateQuery, values);
-    console.log(rows);
+    //console.log(rows);
     return res
       .status(200)
       .send({ message: "Attendance recorded successfully", data: rows });
