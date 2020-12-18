@@ -61,19 +61,19 @@ create table employee(
 	set null
 );
 create table is_given(
-	ex_type varchar(255),
+	ex_id varchar(255),
 	amount int,
 	email varchar(255),
-	primary key (ex_type, email),
+	primary key (ex_id, email),
 	foreign key (email) references employee on delete
 	set null,
-		foreign key (ex_type) references extras on delete
+		foreign key (ex_id) references extras on delete
 	set null
 );
 create table extras(
 	ex_type varchar(255),
 	ex_id varchar(255),
-	primary key (ex_type)
+	primary key (ex_id)
 );
 create table payroll(
 	transaction_id varchar(255),
