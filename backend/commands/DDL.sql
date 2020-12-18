@@ -28,7 +28,7 @@ create table gradepay(
 	grade_id varchar(255),
 	grade_name varchar(255),
 	basic_pay int,
-	grade_pf varchar(255),
+	grade_pf int,
 	grade_bonus int,
 	grade_ta int,
 	grade_da int,
