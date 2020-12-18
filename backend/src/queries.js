@@ -242,8 +242,8 @@ const updateEmployeedata = async (req, res) => {
     req.body.org_name,
     req.body.dept_id,
     req.body.grade_id,
-    req.body.email
-  ]
+    req.body.email,
+  ];
   //console.log(values);
   try {
     const { rows } = await db.query(updateQuery, values);
@@ -419,6 +419,55 @@ const markAttendance = async (req, res) => {
     return res.status(400).send({ message: err });
   }
 };
+const addExtras = async (req, res) => {
+  const query = `INSERT into extras(
+    ex_type,
+    ex_id
+    ) values($1,$2) returning *`;
+  const values = [req.body.ex_type, uuid.v4()];
+  try {
+    const { rows } = await db.query(query, values);
+    return res.status(200).send({ message: "Extras added", data: rows });
+  } catch (err) {
+    return res.status(400).send(err);
+  }
+};
+const getExtras = async (req, res) => {
+  const query = `Select * from extras`;
+  try {
+    const { rows } = await db.query(query);
+    return res.status(200).send(rows);
+  } catch (err) {
+    return res.status(400).send({ message: err });
+  }
+};
+const addIsgiven = async (req, res) => {
+  const query = `Insert into is_given(
+    ex_id,
+    amount,
+    email)
+    values($1,$2,$3)
+    returning *`;
+  const values = [req.body.ex_id, req.body.amount, req.body.email];
+  try {
+    const { rows } = await db.query(query, values);
+    return res
+      .status(200)
+      .send({ message: "Extras added for employee", data: rows });
+  } catch (err) {
+    return res.status(400).send({ message: err });
+  }
+};
+const getExtraForemp = async (req, res) => {
+  const query = `Select * from is_given where email=$1`;
+  const values = [req.params.email];
+  try {
+    const { rows } = await db.query(query, values);
+    return res.status(200).send(rows);
+  } catch (err) {
+    return res.status(400).send({ message: err });
+  }
+};
 module.exports = {
   createAdmin,
   adminLogin,
@@ -437,4 +486,8 @@ module.exports = {
   getGrades,
   addOrganisation,
   markAttendance,
+  addExtras,
+  getExtras,
+  addIsgiven,
+  getExtraForemp
 };
