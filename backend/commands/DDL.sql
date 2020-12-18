@@ -76,65 +76,92 @@ create table extras(
 	primary key (ex_id)
 );
 create table payroll(
-	transaction_id varchar(255),
-	month varchar(255),
-	year varchar(255),
-	gross_pay varchar(255),
-	income_tax varchar(255),
+	transaction_id SERIAL,
+	month int,
+	year int,
+	gross_pay int,
+	income_tax int,
 	emp_mail varchar(255),
 	admin_mail varchar(255),
 	primary key (transaction_id),
-	foreign key (emp_mail) references employee on delete
+	foreign key (emp_mail) references employee(email) on delete
 	set null,
-		foreign key (admin_mail) references admin on delete
+		foreign key (admin_mail) references admin(email) on delete
 	set null
 );
-create function record_attendance() returns trigger as $record_attendance$ BEGIN if date_part('day', current_date) = 1 then new.encashed_leave_till_date := old.enchashed_leave_till_date + old.encashed_leave_this_month;
-with result as (
+create function record_attendance() returns trigger as $record_attendance$ BEGIN if date_part('day', current_date) = 1 then with result as (
 	select case
 			when sum(amount) is null then gross
 			else gross + sum(amount)
 		end as gross_pay,
 		income_tax,
-		emp_mail,
+		email,
 		admin_mail
 	from (
-			select basic_pay + grade_ta + grade_da + grade_bonus -(
-					(paid_leave_taken - organisation.paid_leave_limit) * 10
-				) as gross,
+			select basic_pay + grade_ta + grade_da + grade_bonus -((paid_leave_taken - paid_leave_limit) * 10) as gross,
 				0.12 * basic_pay as income_tax,
-				emp_mail,
-				admin_mail
+				email,
+				admin_mail,
+				is_given.amount as amount
 			from (
 					(
-						select emp_mail,
+						select email,
 							admin_mail,
 							grade_id,
-							paid_leave_taken
+							paid_leave_taken,
+							paid_leave_limit
 						from employee
 							natural join organisation
-						where emp_mail = 'abc@gmail.com'
+						where email = new.email
 					) as result_1
 					natural join gradepay
 				) as result_2
-				left outer join is_given on result_2.emp_mail = is_given.emp_mail
-		)
+				left outer join is_given on result_2.email = is_given.emp_mail
+		) as result_3
+	group by gross,
+		income_tax,
+		email,
+		admin_mail
 )
-insert into payroll
+insert into payroll(
+		month,
+		year,
+		gross_pay,
+		income_tax,
+		emp_mail,
+		admin_mail
+	)
 values (
-		uuid.v4(),
 		date_part('month', current_date),
 		date_part('year', current_date),
-		result.gross_pay,
-		result.income_tax,
-		result.emp_mail,
-		result.admin_mail
+(
+			select gross_pay
+			from result
+		),
+(
+			select income_tax
+			from result
+		),
+(
+			select email
+			from result
+		),
+(
+			select admin_mail
+			from result
+		)
 	);
 else if new.present = 1 then new.present := old.present + 1;
+new.encashed_leave_this_month := old.encashed_leave_this_month;
+new.paid_leave_taken := old.paid_leave_taken;
 end if;
 if new.encashed_leave_this_month = 1 then new.encashed_leave_this_month := old.encashed_leave_this_month + 1;
+new.present := old.present;
+new.paid_leave_taken := old.paid_leave_taken;
 end if;
 if new.paid_leave_taken = 1 then new.paid_leave_taken := old.paid_leave_taken + 1;
+new.encashed_leave_this_month := old.encashed_leave_this_month;
+new.present := old.present;
 end if;
 end if;
 return new;

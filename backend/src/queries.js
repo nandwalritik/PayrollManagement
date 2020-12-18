@@ -181,17 +181,17 @@ const getEmployeeProfile = async (req, res) => {
     return res.status(400).send({ message: error });
   }
 };
-const generateReports = async (req, res) => {
-  //console.log(req);
-  const query = "SELECT * FROM employee natural join payroll where email = $1";
-  try {
-    const { rows } = await db.query(query, [req.body.email]);
-    //console.log(rows);
-    return res.status(200).send({ message: "Report Data", data: rows });
-  } catch (error) {
-    return res.status(400).send({ message: error });
-  }
-};
+// const generateReports = async (req, res) => {
+//   //console.log(req);
+//   const query = "SELECT * FROM employee natural join payroll where email = $1";
+//   try {
+//     const { rows } = await db.query(query, [req.body.email]);
+//     //console.log(rows);
+//     return res.status(200).send({ message: "Report Data", data: rows });
+//   } catch (error) {
+//     return res.status(400).send({ message: error });
+//   }
+// };
 const updateEmployeedata = async (req, res) => {
   const queryGet = "SELECT * FROM employee where email=$1";
   console.log(req.body.email);
@@ -468,6 +468,26 @@ const getExtraForemp = async (req, res) => {
     return res.status(400).send({ message: err });
   }
 };
+const generateReports = async (req, res) => {
+  console.log(req);
+  const { mail } = req.params;
+  const query = `SELECT * FROM (
+    employee join payroll 
+    on employee.email=payroll.emp_mail)
+    natural join gradepay where 
+    employee.email = $1 AND month=$2 AND year=$3`;
+  try {
+    const { rows } = await db.query(query, [
+      mail,
+      date_part("month", current_date),
+      date_part("year", current_date),
+    ]);
+    console.log(rows);
+    return res.status(200).send({ message: "Report Data", data: rows });
+  } catch (error) {
+    return res.status(400).send({ message: error });
+  }
+};
 module.exports = {
   createAdmin,
   adminLogin,
@@ -489,5 +509,6 @@ module.exports = {
   addExtras,
   getExtras,
   addIsgiven,
-  getExtraForemp
+  getExtraForemp,
+  generateReports,
 };

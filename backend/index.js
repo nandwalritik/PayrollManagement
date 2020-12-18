@@ -41,6 +41,7 @@ app.post("/api/addExtras", User.addExtras);
 app.get("/api/getExtras", User.getExtras);
 app.post("/api/addIsgiven", User.addIsgiven);
 app.get("/api/getExtraForemp/:email", User.getExtraForemp);
+app.get("/api/getReports/:mail", User.generateReports);
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
