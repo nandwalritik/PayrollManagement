@@ -30,8 +30,8 @@ create table gradepay(
 	basic_pay int,
 	grade_pf varchar(255),
 	grade_bonus int,
-	grade_ta varchar(255),
-	grade_da varchar(255),
+	grade_ta int,
+	grade_da int,
 	primary key (grade_id)
 );
 create table employee(
@@ -77,10 +77,10 @@ create table extras(
 );
 create table payroll(
 	transaction_id varchar(255),
-	month varchar(255),
-	year varchar(255),
-	gross_pay varchar(255),
-	income_tax varchar(255),
+	month int,
+	year int,
+	gross_pay int,
+	income_tax int,
 	emp_mail varchar(255),
 	admin_mail varchar(255),
 	primary key (transaction_id),
@@ -106,7 +106,7 @@ create function record_attendance() returns trigger as $record_attendance$
 						natural join gradepay
 					) as result_2
 					left outer join is_given on result_2.emp_mail=is_given.emp_mail
-				)
+				) as result_3
 			)
 			insert into payroll values (
 				uuid.v4(),date_part('month',current_date),date_part('year',current_date),result.gross_pay,result.income_tax,result.emp_mail,result.admin_mail
@@ -114,12 +114,18 @@ create function record_attendance() returns trigger as $record_attendance$
 		else
 			if new.present = 1 then
 				new.present := old.present+1;
+				new.encashed_leave_this_month := old.encashed_leave_this_month;
+				new.paid_leave_taken := old.paid_leave_taken;
 			end if;
 			if new.encashed_leave_this_month = 1 then
-					new.encashed_leave_this_month := old.encashed_leave_this_month + 1;
+				new.encashed_leave_this_month := old.encashed_leave_this_month + 1;
+				new.present := old.present;
+				new.paid_leave_taken := old.paid_leave_taken;
 			end if;
 			if new.paid_leave_taken = 1 then
-					new.paid_leave_taken := old.paid_leave_taken + 1;
+				new.paid_leave_taken := old.paid_leave_taken + 1;
+				new.encashed_leave_this_month := old.encashed_leave_this_month;
+				new.present := old.present;
 			end if;	
 		end if;
 		return new;
