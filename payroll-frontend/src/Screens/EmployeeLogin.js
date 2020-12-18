@@ -87,7 +87,7 @@ const EmployeeLogin = () => {
       .then((res) => {
         console.log(res);
         if (res.message === "Auth.verified") {
-          history.push({path:"/employeeDashboard",state:{email}});
+          history.push({path:"/employeeDrawer",state:{email}});
         } else {
           handleClickOpen();
           setMessage(res.message);
