@@ -469,19 +469,18 @@ const getExtraForemp = async (req, res) => {
   }
 };
 const generateReports = async (req, res) => {
-  console.log(req);
+  // console.log(req);
   const { mail } = req.params;
-  const query = `SELECT * FROM (
-    employee join payroll 
-    on employee.email=payroll.emp_mail)
-    natural join gradepay where 
-    employee.email = $1 AND month=$2 AND year=$3`;
+  console.log(mail);
+  const query = `WITH T AS 
+  (Select * from 
+  employee,payroll,gradepay 
+  where 
+  employee.email = payroll.emp_mail and employee.grade_id = gradepay.grade_id)
+  Select * from T where email=$1 and month=$2 and year=$3`;
+
   try {
-    const { rows } = await db.query(query, [
-      mail,
-      date_part("month", current_date),
-      date_part("year", current_date),
-    ]);
+    const { rows } = await db.query(query,[mail,12,2020]);
     console.log(rows);
     return res.status(200).send({ message: "Report Data", data: rows });
   } catch (error) {
