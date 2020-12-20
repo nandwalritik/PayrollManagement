@@ -54,7 +54,7 @@ const EmployeeDrawer = (props) => {
     present: 0,
     paid_leave_taken: 0,
     encashed_leave_this_month: 0,
-    email:props.location.state.email
+    email: props.location.state.email,
   };
   const formik = useFormik({
     initialValues,
@@ -116,7 +116,12 @@ const EmployeeDrawer = (props) => {
           flexDirection: "row",
         }}
       >
-        <div className="Login-button" onClick={() => history.push("/reports")}>
+        <div
+          className="Login-button"
+          onClick={() =>
+            history.push("/reports", { email: props.location.state.email })
+          }
+        >
           <FontAwesomeIcon icon={faFile} />
           <h4>Generate Report</h4>
         </div>

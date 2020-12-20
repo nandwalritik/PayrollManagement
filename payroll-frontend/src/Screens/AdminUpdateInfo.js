@@ -47,6 +47,7 @@ const AdminUpdateInfo = () => {
     history.push("/updateProfile", { email: emp.email });
   };
   const handleDelete = async (emp) => {
+    console.log(emp)
     fetch(`${base_url}deleteEmployee`, {
       method: "POST",
       body: JSON.stringify({
