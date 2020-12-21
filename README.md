@@ -12,6 +12,19 @@ These instructions will get you a copy of the project up and running on your loc
 - Any operating system (i.e. Linux, Windows, MacOS X)
 - A little knowledge of React and Node.js . Don't worry if you are new to it, you just need knack to learn.
 
+## Agile Documentation
+
+- Move to PayrollManagement/AgileDocumentation to look at:-
+- **UI Prototyping**
+- **Architecture Qualities**
+- **Estimation**
+- **High Level Domain Architecture**
+- **Software Requirement Analysis**
+- **Sprint Backlog**
+- **Use Case Diagram**
+- **User Stories**
+- **Website Workflow**
+
 ## Development Setup
 
 - Install node, npm.
