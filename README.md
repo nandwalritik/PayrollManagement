@@ -54,6 +54,10 @@ nodemon index.js
  ```bash
  ALTER ROLE me CREATEDB ;
  ```
+ - After that create a database named api
+ ```bash
+ CREATE DATABASE api ;
+ ```
 - For connecting postgres with **me**.Run :
 ```bash
 psql -d postgres -h localhost -U me
