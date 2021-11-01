@@ -5,7 +5,11 @@
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+```bash
+git clone https://github.com/nandwalritik/PayrollManagement
+cd PayrollManagement
+```
 
 ## Requirements
 
@@ -30,24 +34,30 @@ These instructions will get you a copy of the project up and running on your loc
 - Install node, npm.
 
 ## To start FrontEnd React Server
-
-- move to PayrollManagement/payroll-frontend folder
-- npm i
-- npm start
+```bash
+cd PayrollManagement/payroll-frontend
+npm i
+npm start
+```
 
 ## To start Backend Server
+```bash
+cd PayrollManagement/backend
+npm i
+nodemon index.js
+```
 
-- move to PayrollManagement/backend folder
-- npm i
-- nodemon index.js
-
-## To Create User in Postgresql
+## To [Create User](https://blog.logrocket.com/nodejs-expressjs-postgresql-crud-rest-api-example/#:~:text=have%20superuser%20privileges.-,Creating%20a%20role%20in%20Postgres,-First%2C%20we%E2%80%99ll%20create) in Postgresql
 
 - create a role called **me** and give it a password of **password**. A role can function as a user or a group , so in this case, we’ll be using it as a user.
 - We want **me** to be able to create a database.So run the following :-
-  **ALTER ROLE me CREATEDB;**
-- For connecting postgres with **me**.Run:-
-  **psql -d postgres -h localhost -U me**
+ ```bash
+ ALTER ROLE me CREATEDB ;
+ ```
+- For connecting postgres with **me**.Run :
+```bash
+psql -d postgres -h localhost -U me
+```
 
 ## To Create Tables
 
